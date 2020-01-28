@@ -25,7 +25,7 @@ sudo apt install p7zip-full imagemagick fakeroot
 Download the latest Notion Windows installer as `notion.exe`, e.g. using wget:
 
 ```sh
-wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.6.exe' -O notion.exe
+wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.6.exe' -o notion.exe
 ```
 
 # Build
