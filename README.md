@@ -22,6 +22,12 @@ Install `7z`, `convert` and `fakeroot` (assuming you already have `dpkg`):
 sudo apt install p7zip-full imagemagick fakeroot
 ```
 
+Download the latest Notion Windows installer as `notion.exe`, e.g. using wget:
+
+```sh
+wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.6.exe' -O notion.exe
+```
+
 # Build
 
 Run the build script:
@@ -29,3 +35,5 @@ Run the build script:
 ```sh
 ./build.sh
 ```
+
+Once complete, you should have a DEB package in the `out` directory.
