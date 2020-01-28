@@ -21,8 +21,8 @@ check-command() {
 }
 
 commands=(
-  node npm 7z asar convert electron-packager
-  electron-installer-debian fakeroot dpkg
+  node npm asar electron-packager electron-installer-debian
+  7z convert fakeroot dpkg
 )
 
 for command in "${commands[@]}"; do
