@@ -2,6 +2,10 @@
 
 Build Notion packages for Ubuntu/Debian.
 
+## Prebuilt packages
+
+See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
+
 ## Requirements
 
 - Install Node.js v12, e.g. using NVM:
