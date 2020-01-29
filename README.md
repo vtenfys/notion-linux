@@ -34,7 +34,7 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
    brew install p7zip imagemagick fakeroot dpkg
    ```
 
-4. Download the latest Notion Windows installer as `notion.exe`, e.g. using wget:
+4. Download the latest Notion Windows or macOS installer, as `notion.exe` or `notion.dmg` respectively, e.g. using wget:
 
    ```sh
    wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.6.exe' -o notion.exe
@@ -45,7 +45,9 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
 Run the build script:
 
 ```sh
-./build.sh
+./build.sh <platform>
 ```
+
+replacing `<platform>` with either `windows` or `mac`, depending on which sources you would like to build from.
 
 Once complete, you should have a DEB package in the `out` directory.

@@ -3,12 +3,28 @@ set -e
 
 ELECTRON_VERSION=7.1.10
 NOTION_BINARY=notion.exe
+NOTION_DMG=notion.dmg
 
-# Check for Notion installer
-if ! [ -f $NOTION_BINARY ]; then
+if [[ $1 != windows && $1 != mac ]]; then
+  echo Please specify whether you would like to build a DEB package using \
+    Windows or macOS sources
+  echo Example: ./build.sh windows
+  exit 1
+fi
+
+# Check for Notion Windows installer
+if [ "$1" == windows ] && ! [ -f $NOTION_BINARY ]; then
   echo Notion installer missing!
   echo Please download Notion for Windows from https://www.notion.so/desktop \
-    and place the installer in this directory as notion.exe
+    and place the installer in this directory as $NOTION_BINARY
+  exit 1
+fi
+
+# Check for Notion macOS installer
+if [ "$1" == mac ] && ! [ -f $NOTION_DMG ]; then
+  echo Notion installer missing!
+  echo Please download Notion for macOS from https://www.notion.so/desktop \
+    and place the installer in this directory as $NOTION_DMG
   exit 1
 fi
 
@@ -37,19 +53,32 @@ fi
 # Setup the build directory
 mkdir -p build
 
-# Extract the Notion executable
-if ! [ -f "build/notion/\$PLUGINSDIR/app-64.7z" ]; then
-  7z x $NOTION_BINARY -obuild/notion
-fi
+if [ "$1" == windows ]; then
+  # Extract the Notion executable
+  if ! [ -f "build/notion/\$PLUGINSDIR/app-64.7z" ]; then
+    7z x $NOTION_BINARY -obuild/notion
+  fi
 
-# Extract the app bundle
-if ! [ -f build/bundle/resources/app.asar ]; then
-  7z x "build/notion/\$PLUGINSDIR/app-64.7z" -obuild/bundle
-fi
+  # Extract the app bundle
+  if ! [ -f build/bundle/resources/app.asar ]; then
+    7z x "build/notion/\$PLUGINSDIR/app-64.7z" -obuild/bundle
+  fi
 
-# Extract the app container
-if ! [ -d build/app ]; then
-  asar extract build/bundle/resources/app.asar build/app
+  # Extract the app container
+  if ! [ -d build/app ]; then
+    asar extract build/bundle/resources/app.asar build/app
+  fi
+elif [ "$1" == mac ]; then
+  # Extract the Notion disk image
+  if ! [ -f 'build/notion/Notion Installer/Notion.app/Contents/Resources/app.asar' ]; then
+    7z x $NOTION_DMG -obuild/notion
+  fi
+
+  if ! [ -d build/app ]; then
+    asar extract \
+      'build/notion/Notion Installer/Notion.app/Contents/Resources/app.asar' \
+      build/app
+  fi
 fi
 
 # Install NPM dependencies
