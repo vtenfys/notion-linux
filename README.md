@@ -37,7 +37,7 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
 4. Download the latest Notion Windows or macOS installer, as `notion.exe` or `notion.dmg` respectively, e.g. using wget:
 
    ```sh
-   wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.6.exe' -o notion.exe
+   wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.6.exe' -O notion.exe
    ```
 
 # Build
