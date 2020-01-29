@@ -78,6 +78,12 @@ fi
 
 # Install NPM dependencies
 if ! [ -f build/app/package-lock.json ]; then
+  # Replace package name to fix some issues:
+  # - conflicting package in Ubuntu repos called "notion"
+  # - icon not showing up properly when only the DEB package is renamed
+  sed -i 's/"Notion"/"notion-desktop"/' build/app/package.json
+
+  # Remove existing node_modules
   rm -rf build/app/node_modules
 
   # Configure build settings
@@ -104,7 +110,7 @@ if ! [ -d build/dist ]; then
     --arch x64 \
     --out build/dist \
     --electron-version $ELECTRON_VERSION \
-    --executable-name Notion
+    --executable-name notion-desktop
 fi
 
 # Create Debian package
@@ -112,4 +118,5 @@ electron-installer-debian \
   --src build/dist/app-linux-x64 \
   --dest out \
   --arch amd64 \
+  --options.productName Notion \
   --options.icon build/dist/app-linux-x64/resources/app/icon.png
