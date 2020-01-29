@@ -38,31 +38,44 @@ fi
 mkdir -p build
 
 # Extract the Notion executable
-7z x $NOTION_BINARY -obuild/notion
+if ! [ -f "build/notion/\$PLUGINSDIR/app-64.7z" ]; then
+  7z x $NOTION_BINARY -obuild/notion
+fi
 
 # Extract the app bundle
-7z x 'build/notion/$PLUGINSDIR/app-64.7z' -obuild/bundle
+if ! [ -f build/bundle/resources/app.asar ]; then
+  7z x "build/notion/\$PLUGINSDIR/app-64.7z" -obuild/bundle
+fi
 
 # Extract the app container
-asar extract build/bundle/resources/app.asar build/app
+if ! [ -d build/app ]; then
+  asar extract build/bundle/resources/app.asar build/app
+fi
 
 # Install NPM dependencies
-npm install --prefix build/app
+if ! [ -f build/app/package-lock.json ]; then
+  rm -rf build/app/node_modules
+  npm install --prefix build/app
+fi
 
 # Convert icon.ico to PNG
-convert build/app/icon.ico build/app/icon.png
+if ! [ -f build/app/icon.png ]; then
+  convert 'build/app/icon.ico[0]' build/app/icon.png
+fi
 
 # Create Electron distribution
-electron-packager build/app app \
-  --platform linux \
-  --arch x64 \
-  --out build/dist \
-  --electron-version $ELECTRON_VERSION \
-  --executable-name Notion
+if ! [ -d build/dist ]; then
+  electron-packager build/app app \
+    --platform linux \
+    --arch x64 \
+    --out build/dist \
+    --electron-version $ELECTRON_VERSION \
+    --executable-name Notion
+fi
 
 # Create Debian package
 electron-installer-debian \
   --src build/dist/app-linux-x64 \
   --dest out \
   --arch amd64 \
-  --options.icon build/dist/app-linux-x64/resources/app/icon-0.png
+  --options.icon build/dist/app-linux-x64/resources/app/icon.png
