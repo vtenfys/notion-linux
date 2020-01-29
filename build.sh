@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ELECTRON_VERSION=7.1.10
+ELECTRON_VERSION=6.1.7
 NOTION_BINARY=notion.exe
 NOTION_DMG=notion.dmg
 
@@ -45,11 +45,6 @@ for command in "${commands[@]}"; do
   check-command "$command"
 done
 
-# Check for correct Node version
-if ! node --version | grep -q 'v12\.'; then
-  echo Incorrect Node version: expected version 12
-fi
-
 # Setup the build directory
 mkdir -p build
 
@@ -84,7 +79,17 @@ fi
 # Install NPM dependencies
 if ! [ -f build/app/package-lock.json ]; then
   rm -rf build/app/node_modules
-  npm install --prefix build/app
+
+  # Configure build settings
+  # See https://www.electronjs.org/docs/tutorial/using-native-node-modules
+  export npm_config_target=$ELECTRON_VERSION
+  export npm_config_arch=x64
+  export npm_config_target_arch=x64
+  export npm_config_disturl=https://electronjs.org/headers
+  export npm_config_runtime=electron
+  export npm_config_build_from_source=true
+
+  HOME=~/.electron-gyp npm install --prefix build/app
 fi
 
 # Convert icon.ico to PNG

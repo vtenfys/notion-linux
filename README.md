@@ -8,10 +8,10 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
 
 ## Requirements
 
-1. Install Node.js v12, e.g. using NVM:
+1. Install Node.js, e.g. using NVM:
 
    ```sh
-   nvm install 12
+   nvm install node
    ```
 
 2. Install `asar`, `electron-packager` and `electron-installer-debian`:
