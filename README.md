@@ -1,10 +1,10 @@
-# Notion DEB Builder
+# Notion RPM Builder
 
-Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's Windows or macOS packages.
+Build Notion packages for Redhat, using resources extracted from Notion's Windows or macOS packages.
 
 ## Prebuilt packages
 
-See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
+See [Releases](https://github.com/utkarshmalik211/notion-rpm-builder/releases)
 
 ## Requirements
 
@@ -17,15 +17,15 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
 2. Install `asar`, `electron-packager` and `electron-installer-debian`:
 
    ```sh
-   npm -g install asar electron-packager electron-installer-debian
+   npm -g install asar electron-packager electron-installer-redhat
    ```
 
 3. Install packages required for `7z`, `convert`, `fakeroot` and `dpkg`.
 
-   Using Ubuntu or Debian:
+   Using Redhat:
 
    ```sh
-   sudo apt install p7zip-full imagemagick fakeroot
+   sudo yum install p7zip-plugins ImageMagick fakeroot
    ```
 
    Or, using macOS:
@@ -50,4 +50,4 @@ Run the build script:
 
 replacing `<platform>` with either `windows` or `mac`, depending on which sources you would like to build from.
 
-Once complete, you should have a DEB package in the `out` directory.
+Once complete, you should have a RPM package in the `dist/installers` directory.
