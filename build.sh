@@ -37,8 +37,8 @@ check-command() {
 }
 
 commands=(
-  node npm asar electron-packager electron-installer-debian
-  7z convert fakeroot dpkg
+  node npm asar electron-packager electron-installer-debian electron-installer-redhat
+  7z convert fakeroot dnf
 )
 
 for command in "${commands[@]}"; do
@@ -114,9 +114,17 @@ if ! [ -d build/dist ]; then
 fi
 
 # Create Debian package
-electron-installer-debian \
+# electron-installer-debian \
+#   --src build/dist/app-linux-x64 \
+#   --dest out \
+#   --arch amd64 \
+#   --options.productName Notion \
+#   --options.icon build/dist/app-linux-x64/resources/app/icon.png
+
+electron-installer-redhat \
   --src build/dist/app-linux-x64 \
-  --dest out \
-  --arch amd64 \
+  --dest dist/installers/ \
+  --arch x86_64 \
   --options.productName Notion \
-  --options.icon build/dist/app-linux-x64/resources/app/icon.png
+  --options.icon build/dist/app-linux-x64/resources/app/icon.png\
+  --options.license OtherLicense
