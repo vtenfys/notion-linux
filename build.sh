@@ -5,15 +5,15 @@ ELECTRON_VERSION=6.1.7
 NOTION_BINARY=notion.exe
 NOTION_DMG=notion.dmg
 
-if [[ $1 != windows && $1 != mac ]]; then
+if [[ $1 != win && $1 != mac ]]; then
   echo Please specify whether you would like to build a DEB package using \
     Windows or macOS sources
-  echo Example: ./build.sh windows
+  echo Example: ./build.sh win
   exit 1
 fi
 
 # Check for Notion Windows installer
-if [ "$1" == windows ] && ! [ -f $NOTION_BINARY ]; then
+if [ "$1" == win ] && ! [ -f $NOTION_BINARY ]; then
   echo Notion installer missing!
   echo Please download Notion for Windows from https://www.notion.so/desktop \
     and place the installer in this directory as $NOTION_BINARY
@@ -48,7 +48,7 @@ done
 # Setup the build directory
 mkdir -p build
 
-if [ "$1" == windows ]; then
+if [ "$1" == win ]; then
   # Extract the Notion executable
   if ! [ -f "build/notion/\$PLUGINSDIR/app-64.7z" ]; then
     7z x $NOTION_BINARY -obuild/notion

@@ -48,6 +48,6 @@ Run the build script:
 ./build.sh <platform>
 ```
 
-replacing `<platform>` with either `windows` or `mac`, depending on which sources you would like to build from.
+replacing `<platform>` with either `win` or `mac`, depending on which sources you would like to build from.
 
 Once complete, you should have a DEB package in the `out` directory.
