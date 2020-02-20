@@ -83,6 +83,10 @@ if ! [ -f build/app/package-lock.json ]; then
   # - icon not showing up properly when only the DEB package is renamed
   sed -i 's/"Notion"/"notion-desktop"/' build/app/package.json
 
+  # Include source platform in version string
+  preamble='"version": "'
+  sed -i -r "s/$preamble(.+?)\"/$preamble\1-$1\"/" build/app/package.json
+
   # Remove existing node_modules
   rm -rf build/app/node_modules
 
