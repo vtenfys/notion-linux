@@ -17,7 +17,7 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
 2. Install `asar`, `electron-packager` and `electron-installer-debian`:
 
    ```sh
-   npm -g install asar electron-packager electron-installer-debian
+   npm install
    ```
 
 3. Install packages required for `7z`, `convert`, `fakeroot` and `dpkg`.

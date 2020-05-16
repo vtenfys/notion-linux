@@ -1,0 +1,18 @@
+{
+  "name": "notion-deb-builder",
+  "version": "1.0.0",
+  "description": "Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's Windows or macOS packages.",
+  "dependencies": {
+    "asar": "^3.0.3",
+    "electron-installer-debian": "^3.0.0",
+    "electron-packager": "^14.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidbailey00/notion-deb-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davidbailey00/notion-deb-builder/issues"
+  },
+  "homepage": "https://github.com/davidbailey00/notion-deb-builder#readme"
+}
