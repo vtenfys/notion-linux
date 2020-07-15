@@ -41,6 +41,7 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
    ```
 
 # Build
+Choose correct build script for your architecture.
 
 Run the build script:
 
