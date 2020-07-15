@@ -46,7 +46,7 @@ Choose correct build script for your architecture.
 Run the build script:
 
 ```sh
-./build.sh <platform>
+./build-x64.sh <platform>
 ```
 
 replacing `<platform>` with either `win` or `mac`, depending on which sources you would like to build from.
