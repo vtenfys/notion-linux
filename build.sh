@@ -114,7 +114,8 @@ if ! [ -d build/dist ]; then
     --arch x64 \
     --out build/dist \
     --electron-version $ELECTRON_VERSION \
-    --executable-name notion-desktop
+    --executable-name notion-desktop \
+    --asar
 fi
 
 # Create Debian package
@@ -123,4 +124,6 @@ electron-installer-debian \
   --dest out \
   --arch amd64 \
   --options.productName Notion \
-  --options.icon build/dist/app-linux-x64/resources/app/icon.png
+  --options.icon build/app/icon.png \
+  --asar=true
+
