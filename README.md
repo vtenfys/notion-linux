@@ -54,4 +54,4 @@ Once complete, you should have a DEB package in the `out` directory.
 
 As an alternative to installing the tooling on your system, you can build the `deb` using [Earthly](https://docs.earthly.dev/installation) and [Docker](https://docs.docker.com/get-docker/).
 
-Once these tools are installed, simply run `earth +build-win` or `earth +build-mac`; depending on which source you want to use. The `deb` will be in your current directory. One advantage is that this eliminates any differences in other environments, and may provide an easier installation process.
+Once these tools are installed, run `earth +build`. The `deb` will be in the `out` directory. One advantage is that this eliminates any differences in other environments, and may provide an easier installation process.
