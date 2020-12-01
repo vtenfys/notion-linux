@@ -4,6 +4,7 @@ set -e
 ELECTRON_VERSION=6.1.7
 NOTION_BINARY=notion.exe
 NOTION_DMG=notion.dmg
+PATH="node_modules/.bin:$PATH"
 
 if [[ $1 != win && $1 != mac ]]; then
   echo Please specify whether you would like to build a DEB package using \
