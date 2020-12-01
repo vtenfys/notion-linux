@@ -20,12 +20,12 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
    npm -g install asar electron-packager electron-installer-debian
    ```
 
-3. Install packages required for `7z`, `convert`, `fakeroot` and `dpkg`.
+3. Install packages required for `7z`, `convert`, `fakeroot`, make, `g++` and `dpkg`.
 
    Using Ubuntu or Debian:
 
    ```sh
-   sudo apt install p7zip-full imagemagick fakeroot
+   sudo apt install p7zip-full imagemagick fakeroot make g++
    ```
 
    Or, using macOS:
