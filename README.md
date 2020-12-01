@@ -1,10 +1,10 @@
-# Notion DEB Builder
+# Notion for Ubuntu/Debian
 
 Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's Windows installer.
 
-## Prebuilt packages
+## Prebuilt packages (or, Take me to the downloads!)
 
-See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
+See the [latest release](https://github.com/davidbailey00/notion-deb-builder/releases/latest) [all releases](https://github.com/davidbailey00/notion-deb-builder/releases).
 
 ## Requirements
 
