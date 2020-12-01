@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ELECTRON_VERSION=6.1.12
+ELECTRON_VERSION=11.0.3
 NOTION_BINARY=notion.exe
 PATH="node_modules/.bin:$PATH"
 
@@ -82,8 +82,7 @@ if ! [ -d build/dist ]; then
     --arch x64 \
     --out build/dist \
     --electron-version $ELECTRON_VERSION \
-    --executable-name notion-desktop \
-    --asar
+    --executable-name notion-desktop
 fi
 
 # Create Debian package
@@ -92,6 +91,4 @@ electron-installer-debian \
   --dest out \
   --arch amd64 \
   --options.productName Notion \
-  --options.icon build/app/icon.png \
-  --asar=true
-
+  --options.icon build/app/icon.png
