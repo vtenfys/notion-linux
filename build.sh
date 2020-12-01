@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ELECTRON_VERSION=6.1.7
+ELECTRON_VERSION=6.1.12
 NOTION_BINARY=notion.exe
 NOTION_DMG=notion.dmg
 PATH="node_modules/.bin:$PATH"
