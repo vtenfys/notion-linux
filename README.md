@@ -40,7 +40,7 @@ See [Releases](https://github.com/davidbailey00/notion-deb-builder/releases)
    wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.10.exe' -O notion.exe
    ```
 
-# Build
+## Build
 
 Run the build script:
 
@@ -50,8 +50,14 @@ Run the build script:
 
 Once complete, you should have a DEB package in the `out` directory.
 
-## Build using Earthly
+### Build using Earthly
 
 As an alternative to installing the tooling on your system, you can build the `deb` using [Earthly](https://docs.earthly.dev/installation) and [Docker](https://docs.docker.com/get-docker/).
 
 Once these tools are installed, run `earth +build`. The `deb` will be in the `out` directory. One advantage is that this eliminates any differences in other environments, and may provide an easier installation process.
+
+## FAQ
+
+### Google/Apple Login doesn't work; what can I do?
+
+Google/Apple login is not supported. You can [login using your email address instead](https://github.com/davidbailey00/notion-deb-builder/issues/13#issuecomment-719966960), making sure to use the same email as your Google Account or Apple ID.
