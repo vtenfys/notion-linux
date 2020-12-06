@@ -16,16 +16,22 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
 
 2. Install other packages required for building the app.
 
-   Using Ubuntu or Debian:
+   Using Ubuntu or Debian with `apt`:
 
    ```sh
    sudo apt install p7zip-full imagemagick fakeroot make g++
    ```
 
-   Or, using macOS:
+   Or, using macOS with `brew` or `port`:
 
    ```sh
+   # install Command Line Tools first (https://bit.ly/36OoLcg)
+
+   # with Homebrew: (https://brew.sh/)
    brew install p7zip imagemagick fakeroot dpkg
+
+   # with MacPorts: (https://www.macports.org/)
+   sudo port install p7zip imagemagick fakeroot dpkg
    ```
 
 3. Download the latest Notion Windows installer, naming it `notion.exe`, e.g. using wget:
