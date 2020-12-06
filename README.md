@@ -1,3 +1,6 @@
+# Retired
+The upstream notion-deb-builder is now supported by Notion-Enhancer
+
 # Notion for Ubuntu/Debian
 
 Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's Windows installer.
