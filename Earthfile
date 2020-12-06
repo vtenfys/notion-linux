@@ -8,6 +8,6 @@ deps:
 
 build:
     FROM +deps
-    RUN wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.10.exe' -O notion.exe && \
+    RUN wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.11.exe' -O notion.exe && \
         ./build.sh win
-    SAVE ARTIFACT out/notion-desktop_2.0.10-win_amd64.deb AS LOCAL out/notion-desktop_2.0.10-win_amd64.deb
+    SAVE ARTIFACT out/notion-desktop_2.0.11-win_amd64.deb AS LOCAL out/notion-desktop_2.0.11-win_amd64.deb

@@ -31,7 +31,7 @@ See the [latest release](https://github.com/davidbailey00/notion-deb-builder/rel
 3. Download the latest Notion Windows installer, naming it `notion.exe`, e.g. using wget:
 
    ```sh
-   wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.10.exe' -O notion.exe
+   wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.11.exe' -O notion.exe
    ```
 
 ## Build
