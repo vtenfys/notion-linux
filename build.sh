@@ -13,7 +13,6 @@ if ! [ -f $NOTION_BINARY ]; then
   exit 1
 fi
 
-# Check for required commands
 check-command() {
   if ! command -v "$1" >/dev/null 2>&1; then
     echo Missing command: "$1"
@@ -21,14 +20,17 @@ check-command() {
   fi
 }
 
-commands=(
-  node npm asar electron-packager electron-installer-debian
-  7z convert fakeroot dpkg g++ make
-)
+commands=(node npm 7z convert fakeroot dpkg g++ make)
 
+# Check for required commands
 for command in "${commands[@]}"; do
   check-command "$command"
 done
+
+# Install NPM dependencies
+if ! [ -d node_modules ]; then
+  npm install
+fi
 
 # Setup the build directory
 mkdir -p build

@@ -14,13 +14,7 @@ See the [latest release](https://github.com/davidbailey00/notion-deb-builder/rel
    nvm install node
    ```
 
-2. Install `asar`, `electron-packager` and `electron-installer-debian`:
-
-   ```sh
-   npm install
-   ```
-
-3. Install packages required for `7z`, `convert`, `fakeroot`, make, `g++` and `dpkg`.
+2. Install other packages required for building the app.
 
    Using Ubuntu or Debian:
 
@@ -34,7 +28,7 @@ See the [latest release](https://github.com/davidbailey00/notion-deb-builder/rel
    brew install p7zip imagemagick fakeroot dpkg
    ```
 
-4. Download the latest Notion Windows installer, naming it `notion.exe`, e.g. using wget:
+3. Download the latest Notion Windows installer, naming it `notion.exe`, e.g. using wget:
 
    ```sh
    wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.10.exe' -O notion.exe
