@@ -19,14 +19,14 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
    Using Ubuntu or Debian with `apt`:
 
    ```sh
-   sudo apt install p7zip-full imagemagick fakeroot make g++
+   sudo apt install p7zip imagemagick fakeroot make g++
    ```
+
+   **Note:** p7zip needs to be version 16 or newer, which is not available in Ubuntu 16.04 or Debian 8. Please upgrade to at least Ubuntu 18.04 or Debian 9, or manually install the latest version of p7zip.
 
    Or, using macOS with `brew` or `port`:
 
    ```sh
-   # install Command Line Tools first (https://bit.ly/36OoLcg)
-
    # with Homebrew: (https://brew.sh/)
    brew install p7zip imagemagick fakeroot dpkg
 
