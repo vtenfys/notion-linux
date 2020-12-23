@@ -56,12 +56,6 @@ To produce an ARM64 build, run the following:
 
 Once complete, you should have a DEB package in the `out` directory.
 
-### Build using Earthly
-
-As an alternative to installing the tooling on your system, you can build the `deb` using [Earthly](https://docs.earthly.dev/installation) and [Docker](https://docs.docker.com/get-docker/).
-
-Once these tools are installed, run `earth +build`. The `deb` will be in the `out` directory. One advantage is that this eliminates any differences in other environments, and may provide an easier installation process.
-
 ## FAQ
 
 ### Google/Apple Login doesn't work; what can I do?
