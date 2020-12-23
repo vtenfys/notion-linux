@@ -3,6 +3,8 @@ set -e
 
 ELECTRON_VERSION=11.0.3
 NOTION_BINARY=notion.exe
+BUILD_ARCH=${1:-x64}
+PACKAGE_ARCH=${2:-amd64}
 PATH="node_modules/.bin:$PATH"
 
 # Check for Notion installer
@@ -63,8 +65,8 @@ if ! [ -f build/app/package-lock.json ]; then
   # Configure build settings
   # See https://www.electronjs.org/docs/tutorial/using-native-node-modules
   export npm_config_target=$ELECTRON_VERSION
-  export npm_config_arch=x64
-  export npm_config_target_arch=x64
+  export npm_config_arch=$BUILD_ARCH
+  export npm_config_target_arch=$BUILD_ARCH
   export npm_config_disturl=https://electronjs.org/headers
   export npm_config_runtime=electron
   export npm_config_build_from_source=true
@@ -81,16 +83,18 @@ fi
 if ! [ -d build/dist ]; then
   electron-packager build/app app \
     --platform linux \
-    --arch x64 \
+    --arch "$BUILD_ARCH" \
     --out build/dist \
     --electron-version $ELECTRON_VERSION \
     --executable-name notion-desktop
 fi
 
+
+
 # Create Debian package
 electron-installer-debian \
-  --src build/dist/app-linux-x64 \
+  --src "build/dist/app-linux-$BUILD_ARCH" \
   --dest out \
-  --arch amd64 \
+  --arch "$PACKAGE_ARCH" \
   --options.productName Notion \
   --options.icon build/app/icon.png

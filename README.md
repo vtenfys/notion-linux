@@ -48,6 +48,12 @@ Run the build script:
 ./build.sh
 ```
 
+To produce an ARM64 build, run the following:
+
+```sh
+./build.sh arm64 arm64
+```
+
 Once complete, you should have a DEB package in the `out` directory.
 
 ### Build using Earthly
