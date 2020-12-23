@@ -2,9 +2,11 @@
 
 Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's Windows installer.
 
-## Download the latest release
+## Download the latest pre-built package
 
-[Download the latest release](https://github.com/davidbailey00/notion-deb-builder/releases/download/v2.0.11/notion-desktop_2.0.11_amd64.deb) or [see all releases](https://github.com/davidbailey00/notion-deb-builder/releases).
+- [Download the latest package for AMD64 (most systems)](https://github.com/davidbailey00/notion-deb-builder/releases/download/v2.0.11-e11.1.1/notion-desktop_2.0.11_amd64.deb)
+- [Download the latest package for ARM64](https://github.com/davidbailey00/notion-deb-builder/releases/download/v2.0.11-e11.1.1/notion-desktop_2.0.11_arm64.deb)
+- [See all releases](https://github.com/davidbailey00/notion-deb-builder/releases)
 
 ## Requirements
 
@@ -13,6 +15,8 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
    ```sh
    nvm install node
    ```
+
+   You can also use your system package manager, although this may not install the latest version.
 
 2. Install other packages required for building the app.
 
@@ -32,12 +36,6 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
 
    # with MacPorts: (https://www.macports.org/)
    sudo port install p7zip imagemagick fakeroot dpkg
-   ```
-
-3. Download the latest Notion Windows installer, naming it `notion.exe`, e.g. using wget:
-
-   ```sh
-   wget 'https://desktop-release.notion-static.com/Notion%20Setup%202.0.11.exe' -O notion.exe
    ```
 
 ## Build
