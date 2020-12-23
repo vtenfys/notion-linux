@@ -39,29 +39,30 @@ fi
 mkdir -p "$BUILD_DIR"
 
 # Extract the Notion executable
-if ! [ -f "$BUILD_DIR/notion/\$PLUGINSDIR/app-64.7z" ]; then
-  7z x $NOTION_BINARY -o"$BUILD_DIR/notion"
+if ! [ -f "$BUILD_DIR/notion-exe/\$PLUGINSDIR/app-64.7z" ]; then
+  7z x $NOTION_BINARY -o"$BUILD_DIR/notion-exe"
 fi
 
 # Extract the app bundle
-if ! [ -f "$BUILD_DIR/bundle/resources/app.asar" ]; then
-  7z x "$BUILD_DIR/notion/\$PLUGINSDIR/app-64.7z" -o"$BUILD_DIR"/bundle
+if ! [ -f "$BUILD_DIR/app-bundle/resources/app.asar" ]; then
+  7z x "$BUILD_DIR/notion-exe/\$PLUGINSDIR/app-64.7z" -o"$BUILD_DIR"/app-bundle
 fi
 
 # Extract the app container
-if ! [ -d "$BUILD_DIR/app" ]; then
-  asar extract "$BUILD_DIR/bundle/resources/app.asar" "$BUILD_DIR/app"
+if ! [ -d "$BUILD_DIR/app-unpacked" ]; then
+  asar extract \
+    "$BUILD_DIR/app-bundle/resources/app.asar" "$BUILD_DIR/app-unpacked"
 fi
 
 # Install NPM dependencies
-if ! [ -f "$BUILD_DIR/app/package-lock.json" ]; then
+if ! [ -f "$BUILD_DIR/app-unpacked/package-lock.json" ]; then
   # Replace package name to fix some issues:
   # - conflicting package in Ubuntu repos called "notion"
   # - icon not showing up properly when only the DEB package is renamed
-  sed -i 's/"Notion"/"notion-desktop"/' "$BUILD_DIR/app/package.json"
+  sed -i 's/"Notion"/"notion-desktop"/' "$BUILD_DIR/app-unpacked/package.json"
 
   # Remove existing node_modules
-  rm -rf "$BUILD_DIR/app/node_modules"
+  rm -rf "$BUILD_DIR/app-unpacked/node_modules"
 
   # Configure build settings
   # See https://www.electronjs.org/docs/tutorial/using-native-node-modules
@@ -72,28 +73,29 @@ if ! [ -f "$BUILD_DIR/app/package-lock.json" ]; then
   export npm_config_runtime=electron
   export npm_config_build_from_source=true
 
-  HOME=~/.electron-gyp npm install --prefix "$BUILD_DIR/app"
+  HOME=~/.electron-gyp npm install --prefix "$BUILD_DIR/app-unpacked"
 fi
 
 # Convert icon.ico to PNG
-if ! [ -f "$BUILD_DIR/app/icon.png" ]; then
-  convert "$BUILD_DIR/app/icon.ico[0]" "$BUILD_DIR/app/icon.png"
+if ! [ -f "$BUILD_DIR/app-unpacked/icon.png" ]; then
+  convert \
+    "$BUILD_DIR/app-unpacked/icon.ico[0]" "$BUILD_DIR/app-unpacked/icon.png"
 fi
 
-# Create Electron distribution
-if ! [ -d "$BUILD_DIR/dist" ]; then
-  electron-packager "$BUILD_DIR/app" app \
+# Create Electron package
+if ! [ -d "$BUILD_DIR/app-linux-$BUILD_ARCH" ]; then
+  electron-packager "$BUILD_DIR/app-unpacked" app \
     --platform linux \
     --arch "$BUILD_ARCH" \
-    --out "$BUILD_DIR/dist" \
+    --out "$BUILD_DIR" \
     --electron-version $ELECTRON_VERSION \
     --executable-name notion-desktop
 fi
 
 # Create Debian package
 electron-installer-debian \
-  --src "$BUILD_DIR/dist/app-linux-$BUILD_ARCH" \
+  --src "$BUILD_DIR/app-linux-$BUILD_ARCH" \
   --dest out \
   --arch "$PACKAGE_ARCH" \
   --options.productName Notion \
-  --options.icon "$BUILD_DIR/app/icon.png"
+  --options.icon "$BUILD_DIR/app-unpacked/icon.png"
