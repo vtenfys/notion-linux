@@ -53,12 +53,20 @@ if ! [ -d "$BUILD_DIR/app-unpacked" ]; then
     "$BUILD_DIR/app-bundle/resources/app.asar" "$BUILD_DIR/app-unpacked"
 fi
 
-# Install NPM dependencies
+# Install NPM dependencies and apply patches
 if ! [ -f "$BUILD_DIR/app-unpacked/package-lock.json" ]; then
   # Replace package name to fix some issues:
   # - conflicting package in Ubuntu repos called "notion"
   # - icon not showing up properly when only the DEB package is renamed
   sed -i 's/"Notion"/"notion-desktop"/' "$BUILD_DIR/app-unpacked/package.json"
+
+  # Patch to treat the Linux app like the Windows version
+  # Adds support for some missing features such as Google/Apple login
+  sed -i 's/process\.platform === "win32"/process\.platform === "linux"/g' "$BUILD_DIR/app-unpacked/main/main.js"
+
+  # Patch to show the latest release when an update is available
+  echo >> "$BUILD_DIR/app-unpacked/main/main.js"
+  cat update.js >> "$BUILD_DIR/app-unpacked/main/main.js"
 
   # Remove existing node_modules
   rm -rf "$BUILD_DIR/app-unpacked/node_modules"
@@ -72,7 +80,7 @@ if ! [ -f "$BUILD_DIR/app-unpacked/package-lock.json" ]; then
   export npm_config_runtime=electron
   export npm_config_build_from_source=true
 
-  HOME=~/.electron-gyp npm install --prefix "$BUILD_DIR/app-unpacked"
+  HOME=~/.electron-gyp npm install --prefix "$BUILD_DIR/app-unpacked" open
 fi
 
 # Convert icon.ico to PNG
