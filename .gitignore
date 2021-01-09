@@ -1,5 +1,4 @@
-notion.exe
-notion.dmg
-build-*/
+notion-*.exe
+build/
 out/
 node_modules/

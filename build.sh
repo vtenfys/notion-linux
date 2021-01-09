@@ -3,10 +3,10 @@ set -e
 
 ELECTRON_VERSION=11.1.1
 NOTION_VERSION=2.0.11
-NOTION_BINARY=notion.exe
+NOTION_BINARY=notion-$NOTION_VERSION.exe
 BUILD_ARCH=${1:-x64}
 PACKAGE_ARCH=${2:-amd64}
-BUILD_DIR=build-$BUILD_ARCH
+BUILD_DIR=build/$NOTION_VERSION-$BUILD_ARCH
 PATH="node_modules/.bin:$PATH"
 
 check-command() {
@@ -31,7 +31,7 @@ fi
 # Download Notion executable
 if ! [ -f $NOTION_BINARY ]; then
   origin=https://desktop-release.notion-static.com
-  wget "$origin/Notion%20Setup%20$NOTION_VERSION.exe" -O notion.exe
+  wget "$origin/Notion%20Setup%20$NOTION_VERSION.exe" -O $NOTION_BINARY
 fi
 
 # Setup the build directory
