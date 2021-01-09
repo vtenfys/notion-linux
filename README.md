@@ -4,8 +4,8 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
 
 ## Download the latest pre-built package
 
-- [Download the latest package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-deb-builder/releases/download/v2.0.11-e11.1.1/notion-desktop_2.0.11_amd64.deb)
-- [Download the latest package for 64-bit ARM (VMs on Apple Silicon)](https://github.com/davidbailey00/notion-deb-builder/releases/download/v2.0.11-e11.1.1/notion-desktop_2.0.11_arm64.deb)
+- [Download the latest package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-deb-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_amd64.deb)
+- [Download the latest package for 64-bit ARM (VMs on Apple Silicon)](https://github.com/davidbailey00/notion-deb-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_arm64.deb)
 - [See all releases](https://github.com/davidbailey00/notion-deb-builder/releases)
 
 ## Requirements
