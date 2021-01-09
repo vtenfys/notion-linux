@@ -43,9 +43,3 @@ To produce an ARM64 build, run the following:
 ```
 
 Once complete, you should have a DEB package in the `out` directory.
-
-## FAQ
-
-### Google/Apple Login doesn't work; what can I do?
-
-Google/Apple login is not supported. You can [login using your email address instead](https://github.com/davidbailey00/notion-deb-builder/issues/13#issuecomment-719966960), making sure to use the same email as your Google Account or Apple ID.
