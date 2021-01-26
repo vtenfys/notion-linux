@@ -10,13 +10,13 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
 
 ## Requirements
 
-1. Install Node.js, e.g. using NVM:
+1. Install Node.js, e.g. using [NVM](https://github.com/nvm-sh/nvm):
 
    ```sh
    nvm install node
    ```
 
-   Please ensure that NPM is at least version 7.
+   _Please ensure that NPM is at least version 7._
 
 2. Install other packages required for building the app.
 
@@ -26,7 +26,7 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
    sudo apt install p7zip-full imagemagick fakeroot make g++
    ```
    
-   Please ensure that `p7zip-full` is at least version 16.
+   _Please ensure that `p7zip-full` is at least version 16._
 
 ## Build
 
