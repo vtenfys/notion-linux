@@ -16,7 +16,7 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
    nvm install node
    ```
 
-   You can also use your system package manager, although this may not install the latest version. NPM needs to be version 7 or newer.
+   Please ensure that NPM is at least version 7.
 
 2. Install other packages required for building the app.
 
@@ -25,8 +25,8 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
    ```sh
    sudo apt install p7zip-full imagemagick fakeroot make g++
    ```
-
-   p7zip needs to be version 16 or newer, which is not available in Ubuntu 16.04 or Debian 8. Please upgrade to at least Ubuntu 18.04 or Debian 9, or manually install the latest version of p7zip.
+   
+   Please ensure that `p7zip-full` is at least version 16.
 
 ## Build
 
