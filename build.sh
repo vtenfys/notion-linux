@@ -64,10 +64,6 @@ if ! [ -f "$BUILD_DIR/app-unpacked/package-lock.json" ]; then
   # Adds support for some missing features such as Google/Apple login
   sed -i 's/process\.platform === "win32"/process\.platform === "linux"/g' "$BUILD_DIR/app-unpacked/main/main.js"
 
-  # Patch to show the latest release when an update is available
-  echo >> "$BUILD_DIR/app-unpacked/main/main.js"
-  cat update.js >> "$BUILD_DIR/app-unpacked/main/main.js"
-
   # Remove existing node_modules
   rm -rf "$BUILD_DIR/app-unpacked/node_modules"
 
