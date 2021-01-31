@@ -5,6 +5,12 @@ stages:
   - package
   - deploy
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - build/
+
 build:
   stage: build
   script:
