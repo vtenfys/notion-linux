@@ -16,7 +16,7 @@ check-command() {
   fi
 }
 
-commands=(node npm 7z convert fakeroot g++ make)
+commands=(node npm 7z convert g++ make)
 
 # Check for required commands
 for command in "${commands[@]}"; do

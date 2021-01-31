@@ -39,13 +39,13 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
    Using Fedora or CentOS with `dnf`:
 
    ```sh
-   sudo dnf install p7zip ImageMagick fakeroot make gcc-c++ rpm-build
+   sudo dnf install p7zip ImageMagick make gcc-c++ rpm-build
    ```
 
    Using openSUSE with `zypper`:
 
    ```sh
-   sudo zypper install p7zip-full ImageMagick fakeroot make gcc-c++ rpm-build
+   sudo zypper install p7zip-full ImageMagick make gcc-c++ rpm-build
    ```
 
 ## Build

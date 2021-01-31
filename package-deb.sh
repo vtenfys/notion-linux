@@ -8,11 +8,19 @@ PACKAGE_ARCH=${2:-amd64}
 BUILD_DIR=build/$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
 PATH="node_modules/.bin:$PATH"
 
-# Check for required command
-if ! command -v dpkg >/dev/null 2>&1; then
-  echo Missing command: dpkg
-  exit 1
-fi
+check-command() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    echo Missing command: "$1"
+    exit 1
+  fi
+}
+
+commands=(dpkg fakeroot)
+
+# Check for required commands
+for command in "${commands[@]}"; do
+  check-command "$command"
+done
 
 # Create Debian package
 if ! [ -f "out/notion-desktop_${NOTION_VERSION}_$PACKAGE_ARCH.deb" ]; then
