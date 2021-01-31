@@ -1,12 +1,17 @@
-# Notion for Ubuntu/Debian
+# Notion for Linux
 
-Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's Windows installer.
+Build Notion packages for Linux, using resources extracted from Notion's Windows installer.
 
-## Download the latest pre-built package
+## Download pre-built packages
+
+### Ubuntu, Debian, Linux Mint (DEB)
 
 - [Download the latest package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_amd64.deb)
 - [Download the latest package for 64-bit ARM (e.g. Raspberry Pi)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_arm64.deb)
-- [See all releases](https://github.com/davidbailey00/notion-linux-builder/releases)
+
+### Fedora, RHEL, openSUSE (RPM)
+
+- Coming soon
 
 ## Requirements
 
@@ -26,7 +31,17 @@ Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's
    sudo apt install p7zip-full imagemagick fakeroot make g++
    ```
 
-   _Please ensure that `p7zip-full` is at least version 16._
+   Using Fedora or RHEL with `dnf`:
+
+   ```sh
+   sudo dnf install p7zip ImageMagick fakeroot make gcc-c++
+   ```
+
+   Using openSUSE with `zypper`:
+
+   ```sh
+   sudo zypper install p7zip-full ImageMagick fakeroot make gcc-c++
+   ```
 
 ## Build
 
