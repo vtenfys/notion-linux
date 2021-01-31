@@ -21,9 +21,13 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
    nvm install node
    ```
 
-   _Please ensure that NPM is at least version 7._
+2. Install NPM version 7:
 
-2. Install other packages required for building the app.
+   ```sh
+   npm -g install npm@7
+   ```
+
+3. Install other packages required for building the app.
 
    Using Ubuntu or Debian with `apt`:
 
