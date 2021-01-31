@@ -9,7 +9,7 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
 - [Download the latest package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_amd64.deb)
 - [Download the latest package for 64-bit ARM (e.g. Raspberry Pi)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_arm64.deb)
 
-### Fedora, RHEL, openSUSE (RPM)
+### Fedora, CentOS, openSUSE (RPM)
 
 - Coming soon
 
@@ -35,7 +35,7 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
    sudo apt install p7zip-full imagemagick fakeroot make g++
    ```
 
-   Using Fedora or RHEL with `dnf`:
+   Using Fedora or CentOS with `dnf`:
 
    ```sh
    sudo dnf install p7zip ImageMagick fakeroot make gcc-c++
