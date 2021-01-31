@@ -5,7 +5,6 @@ ELECTRON_VERSION=11.2.1
 NOTION_VERSION=2.0.11
 NOTION_BINARY=notion-$NOTION_VERSION.exe
 BUILD_ARCH=${1:-x64}
-PACKAGE_ARCH=${2:-amd64}
 BUILD_DIR=build/$NOTION_VERSION-$BUILD_ARCH
 PATH="node_modules/.bin:$PATH"
 
@@ -16,7 +15,7 @@ check-command() {
   fi
 }
 
-commands=(node npm 7z convert fakeroot dpkg g++ make)
+commands=(node npm 7z convert fakeroot g++ make)
 
 # Check for required commands
 for command in "${commands[@]}"; do
@@ -97,14 +96,4 @@ if ! [ -d "$BUILD_DIR/app-linux-$BUILD_ARCH" ]; then
     --out "$BUILD_DIR" \
     --electron-version $ELECTRON_VERSION \
     --executable-name notion-desktop
-fi
-
-if ! [ -f "out/notion-desktop_${NOTION_VERSION}_$PACKAGE_ARCH.deb" ]; then
-  # Create Debian package
-  electron-installer-debian \
-    --src "$BUILD_DIR/app-linux-$BUILD_ARCH" \
-    --dest out \
-    --arch "$PACKAGE_ARCH" \
-    --options.productName Notion \
-    --options.icon "$BUILD_DIR/app-unpacked/icon.png"
 fi

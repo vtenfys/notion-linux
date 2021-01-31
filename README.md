@@ -38,13 +38,13 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
    Using Fedora or CentOS with `dnf`:
 
    ```sh
-   sudo dnf install p7zip ImageMagick fakeroot make gcc-c++
+   sudo dnf install p7zip ImageMagick fakeroot make gcc-c++ rpm-build
    ```
 
    Using openSUSE with `zypper`:
 
    ```sh
-   sudo zypper install p7zip-full ImageMagick fakeroot make gcc-c++
+   sudo zypper install p7zip-full ImageMagick fakeroot make gcc-c++ rpm-build
    ```
 
 ## Build
@@ -52,13 +52,17 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
 Run the build script:
 
 ```sh
-./build.sh
+./build.sh        # run on all distros
+./package-deb.sh  # run on DEB-based distros
+./package-rpm.sh  # run on RPM-based distros
 ```
 
 To produce an ARM64 build, run the following:
 
 ```sh
-./build.sh arm64 arm64
+./build.sh arm64                # run on all distros
+./package-deb.sh arm64 arm64    # run on DEB-based distros
+./package-rpm.sh arm64 aarch64  # run on RPM-based distros
 ```
 
 Once complete, you should have a DEB package in the `out` directory.
