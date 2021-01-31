@@ -6,8 +6,8 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
 
 ### Ubuntu, Debian, Linux Mint (DEB)
 
-- [Download the latest package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_amd64.deb)
-- [Download the latest package for 64-bit ARM (e.g. Raspberry Pi)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_arm64.deb)
+- [Download the latest DEB package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_amd64.deb)
+- [Download the latest DEB package for 64-bit ARM (e.g. Raspberry Pi)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-patch2/notion-desktop_2.0.11_arm64.deb)
 
 ### Fedora, CentOS, openSUSE (RPM)
 
