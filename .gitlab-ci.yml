@@ -8,12 +8,14 @@ stages:
 build:
   stage: build
   script:
-    - apt install -y p7zip-full imagemagick make g++
+    - apt-get update
+    - apt-get install -y p7zip-full imagemagick make g++
     - ./build.sh
 
 package:deb:
   stage: package
   needs: ["build"]
   script:
-    - apt install -y fakeroot
+    - apt-get update
+    - apt-get install -y fakeroot
     - ./package-deb.sh
