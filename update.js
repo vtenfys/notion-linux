@@ -1,4 +1,4 @@
-const current_release = "v2.0.11-patch2";
+const current_release = "v2.0.11-3";
 const latest_release_url =
   "https://github.com/davidbailey00/notion-linux-builder/releases/latest";
 fetch(
