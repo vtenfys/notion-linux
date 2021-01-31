@@ -10,12 +10,14 @@ cache:
   paths:
     - node_modules/
     - build/
+    - out/
 
 build:
   stage: build
   script:
     - apt-get update
     - apt-get install -y p7zip-full imagemagick make g++
+    - wget 'https://desktop-release.notion-static.com/Notion Setup 2.0.11.exe' -O notion-2.0.11.exe
     - ./build.sh &
     - ./build.sh arm64 &
     - wait

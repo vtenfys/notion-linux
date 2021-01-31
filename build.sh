@@ -31,7 +31,7 @@ fi
 # Download Notion executable
 if ! [ -f $NOTION_BINARY ]; then
   origin=https://desktop-release.notion-static.com
-  wget "$origin/Notion%20Setup%20$NOTION_VERSION.exe" -O $NOTION_BINARY
+  wget "$origin/Notion Setup $NOTION_VERSION.exe" -O $NOTION_BINARY
 fi
 
 # Setup the build directory
