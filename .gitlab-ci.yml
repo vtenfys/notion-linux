@@ -1,0 +1,19 @@
+image: node:buster
+
+stages:
+  - build
+  - package
+  - deploy
+
+build:
+  stage: build
+  script:
+    - apt install -y p7zip-full imagemagick make g++
+    - ./build.sh
+
+package:deb:
+  stage: package
+  needs: ["build"]
+  script:
+    - apt install -y fakeroot
+    - ./package-deb.sh
