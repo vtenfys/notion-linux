@@ -29,3 +29,4 @@ package:deb:
     - ./package-deb.sh &
     - ./package-deb.sh arm64 arm64 &
     - wait
+  only: ["main"]
