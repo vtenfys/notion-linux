@@ -4,8 +4,6 @@ const latest_release_url =
 fetch("https://api.github.com/repos/davidbailey00/notion-deb-builder/releases")
   .then((res) => res.json())
   .then((releases) => {
-    if (releases[0].tag_name !== current_release) {
-      const open = require("open");
-      open(latest_release_url);
-    }
+    if (releases[0].tag_name !== current_release)
+      require("open")(latest_release_url);
   });
