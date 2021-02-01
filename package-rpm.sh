@@ -21,7 +21,7 @@ if ! [ -f "out/notion-desktop_${NOTION_VERSION}_$PACKAGE_ARCH.deb" ]; then
     --dest out \
     --arch "$PACKAGE_ARCH" \
     --options.productName Notion \
-    --options.icon "$BUILD_DIR/app-unpacked/icon.png" \
+    --options.icon "$BUILD_DIR/app-linux-$BUILD_ARCH/resources/app/icon.png" \
     --options.revision $PACKAGE_REVISION \
     --options.license Other
 fi

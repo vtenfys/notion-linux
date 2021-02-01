@@ -5,19 +5,24 @@ stages:
   - package
   - deploy
 
+variables:
+  NOTION_VERSION: 2.0.11
+  PACKAGE_REVISION: 3
+
 build:
   stage: build
   script:
     - apt-get update
     - apt-get install -y p7zip-full imagemagick make g++
-    - wget 'https://desktop-release.notion-static.com/Notion Setup 2.0.11.exe' -O notion-2.0.11.exe
+    - wget "https://desktop-release.notion-static.com/Notion Setup $NOTION_VERSION.exe" -O notion-$NOTION_VERSION.exe
     - ./build.sh &
     - ./build.sh arm64 &
     - wait
   artifacts:
     paths:
       - node_modules/
-      - build/
+      - build/$NOTION_VERSION-$PACKAGE_REVISION-x64/app-linux-x64
+      - build/$NOTION_VERSION-$PACKAGE_REVISION-arm64/app-linux-arm64
     expire_in: 1 hour
 
 package:deb:
