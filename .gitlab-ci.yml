@@ -34,4 +34,23 @@ package:deb:
     - ./package-deb.sh &
     - ./package-deb.sh arm64 arm64 &
     - wait
+  artifacts:
+    paths:
+      - out/
+    expire_in: 1 hour
+  only: ["main"]
+
+package:rpm:
+  stage: package
+  needs: ["build"]
+  script:
+    - apt-get update
+    - apt-get install -y rpm
+    - ./package-rpm.sh &
+    - ./package-rpm.sh arm64 aarch64 &
+    - wait
+  artifacts:
+    paths:
+      - out/
+    expire_in: 1 hour
   only: ["main"]
