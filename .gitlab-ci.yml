@@ -13,7 +13,7 @@ build:
   stage: build
   script:
     - apt-get update
-    - apt-get install -y p7zip-full imagemagick make g++
+    - apt-get install -y p7zip-full
     - wget "https://desktop-release.notion-static.com/Notion Setup $NOTION_VERSION.exe" -O notion-$NOTION_VERSION.exe
     - ./build.sh &
     - ./build.sh arm64 &
