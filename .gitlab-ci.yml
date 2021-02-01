@@ -14,10 +14,8 @@ build:
   script:
     - apt-get update
     - apt-get install -y p7zip-full
-    - wget "https://desktop-release.notion-static.com/Notion Setup $NOTION_VERSION.exe" -O notion-$NOTION_VERSION.exe
-    - ./build.sh &
-    - ./build.sh arm64 &
-    - wait
+    - ./build.sh
+    - ./build.sh arm64
   artifacts:
     paths:
       - node_modules/
@@ -27,7 +25,6 @@ build:
 
 package:deb:
   stage: package
-  needs: ["build"]
   script:
     - apt-get update
     - apt-get install -y fakeroot
@@ -41,7 +38,6 @@ package:deb:
 
 package:rpm:
   stage: package
-  needs: ["build"]
   script:
     - apt-get update
     - apt-get install -y rpm
