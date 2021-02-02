@@ -8,7 +8,15 @@ build_task:
     populate_script: npm install
   install_deps_script:
     - apt-get update
-    - apt-get install -y p7zip-full
+    - apt-get install -y p7zip-full rpm
   build_script:
     - ./build.sh
     - ./build.sh arm64
+  package_deb_script:
+    - ./package-deb.sh
+    - ./package-deb.sh arm64 arm64
+  package_rpm_script:
+    - ./package-rpm.sh
+    - ./package-rpm.sh arm64 aarch64
+  package_artifacts:
+    path: "out/*"
