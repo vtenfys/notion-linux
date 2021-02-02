@@ -92,5 +92,6 @@ deploy_to_netlify_task:
     - npm install -g netlify-cli
   netlify_deploy_script:
     - mkdir public
+    - cp repos/* public
     - cp -R out/rpm_repo public
     - netlify deploy --dir public

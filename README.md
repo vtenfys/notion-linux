@@ -14,7 +14,7 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
 Run the following in a terminal:
 
 ```sh
-wget https://raw.githubusercontent.com/davidbailey00/notion-linux-builder/main/repos/notion-linux.repo
+wget https://notion.davidbailey.codes/notion-linux.repo
 sudo mv notion-linux.repo /etc/yum.repos.d/notion-linux.repo
 sudo dnf install notion-desktop
 ```
