@@ -25,7 +25,7 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
 2. Install NPM version 7:
 
    ```sh
-   npm -g install npm@7
+   npm install -g npm@7
    ```
 
 3. Install other packages required for building the app.
