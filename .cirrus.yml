@@ -78,7 +78,7 @@ create_rpm_repo_task:
     - dnf install -y createrepo wget unzip
   create_rpm_repo_script:
     - cp -R out/rpms out/rpm_repo
-    - createrepo out/rpm_repo
+    - createrepo --update out/rpm_repo
 
 deploy_to_netlify_task:
   <<: *rpm_repo_cache
