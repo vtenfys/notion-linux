@@ -3,7 +3,7 @@ set -e
 
 ELECTRON_VERSION=11.2.1
 NOTION_VERSION=2.0.11
-PACKAGE_REVISION=3
+PACKAGE_REVISION=4
 BUILD_ARCH=${1:-x64}
 
 RESOURCE_DIR=build/resources-$NOTION_VERSION
@@ -65,10 +65,6 @@ if ! [ -f "$BUILD_DIR/app-unpacked/package-lock.json" ]; then
   # Patch to treat the Linux app like the Windows version
   # Adds support for some missing features such as Google/Apple login
   sed -i 's/process\.platform === "win32"/process\.platform === "linux"/g' "$BUILD_DIR/app-unpacked/main/main.js"
-
-  # Patch to show the latest release when an update is available
-  echo >> "$BUILD_DIR/app-unpacked/main/main.js"
-  cat update.js >> "$BUILD_DIR/app-unpacked/main/main.js"
 
   # Remove existing node_modules
   rm -rf "$BUILD_DIR/app-unpacked/node_modules"
