@@ -16,10 +16,12 @@ build_task:
     - ./build.sh
     - ./build.sh arm64
   package_deb_script:
-    - ./package-deb.sh
-    - ./package-deb.sh arm64 arm64
+    - ./package-deb.sh &
+    - ./package-deb.sh arm64 arm64 &
+    - wait
   package_rpm_script:
-    - ./package-rpm.sh
-    - ./package-rpm.sh arm64 aarch64
+    - ./package-rpm.sh &
+    - ./package-rpm.sh arm64 aarch64 &
+    - wait
   package_artifacts:
     path: "out/*"
