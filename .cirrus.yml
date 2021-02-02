@@ -65,12 +65,12 @@ create_deb_repo_task:
     image: ubuntu:latest
   install_deps_script:
     - apt-get update
-    - apt-get install -y dpkg-dev apt-utils
+    - apt-get install -y apt-utils
   create_deb_repo_script:
     - rm -rf out/deb_repo
     - cp -R out/debs out/deb_repo
     - cd out/deb_repo
-    - dpkg-scanpackages -m . | gzip -c > Packages.gz
+    - apt-ftparchive packages . | gzip -c > Packages.gz
     - apt-ftparchive release . > Release
 
 create_rpm_repo_task:
