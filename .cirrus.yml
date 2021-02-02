@@ -2,37 +2,30 @@ container:
   image: node:buster
   memory: 8G
 
-node_modules_cache_template: &node_modules_cache
+caching_template: &caching
   node_modules_cache:
     folder: node_modules
     fingerprint_script: cat package-lock.json
     populate_script: npm install
-
-build_task:
-  <<: *node_modules_cache
   build_folder_cache:
     folder: build
     fingerprint_script: cat build.sh
+
+build_task:
+  <<: *caching
   install_deps_script:
     - apt-get update
     - apt-get install -y p7zip-full
   build_script:
     - ./build.sh
     - ./build.sh arm64
-  diagnose_build_script:
-    - ls build
-  build_result_artifacts:
-    path: "build/*"
 
 package_deb_task:
-  <<: *node_modules_cache
+  <<: *caching
   depends_on: build
   install_deps_script:
     - apt-get update
     - apt-get install -y fakeroot
-  restore_artifacts_script:
-    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build_result.zip
-    - unzip build_result.zip
   package_script:
     - ./package-deb.sh &
     - ./package-deb.sh arm64 arm64 &
@@ -41,14 +34,11 @@ package_deb_task:
     path: "out/*"
 
 package_rpm_task:
-  <<: *node_modules_cache
+  <<: *caching
   depends_on: build
   install_deps_script:
     - apt-get update
     - apt-get install -y rpm
-  restore_artifacts_script:
-    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build_result.zip
-    - unzip build_result.zip
   package_script:
     - ./package-rpm.sh &
     - ./package-rpm.sh arm64 aarch64 &
