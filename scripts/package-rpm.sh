@@ -18,7 +18,7 @@ fi
 if ! [ -f "out/notion-desktop-$NOTION_VERSION-$PACKAGE_REVISION.$PACKAGE_ARCH.rpm" ]; then
   electron-installer-redhat \
     --src "$BUILD_DIR/app-linux-$BUILD_ARCH" \
-    --dest out \
+    --dest out/rpms \
     --arch "$PACKAGE_ARCH" \
     --options.productName Notion \
     --options.icon "$BUILD_DIR/app-linux-$BUILD_ARCH/resources/app/icon.png" \

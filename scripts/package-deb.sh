@@ -26,7 +26,7 @@ done
 if ! [ -f "out/notion-desktop_$NOTION_VERSION-${PACKAGE_REVISION}_$PACKAGE_ARCH.deb" ]; then
   electron-installer-debian \
     --src "$BUILD_DIR/app-linux-$BUILD_ARCH" \
-    --dest out \
+    --dest out/debs \
     --arch "$PACKAGE_ARCH" \
     --options.productName Notion \
     --options.icon "$BUILD_DIR/app-linux-$BUILD_ARCH/resources/app/icon.png" \

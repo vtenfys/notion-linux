@@ -2,7 +2,7 @@ container:
   image: node:buster
   memory: 8G
 
-task:
+build_cache_template: &build_cache
   node_modules_cache:
     folder: node_modules
     fingerprint_script: cat package-lock.json
@@ -11,67 +11,88 @@ task:
     folder: build
     fingerprint_script: cat scripts/build.sh
 
-  matrix:
-    - name: Build
-      deps_script:
-        - apt-get update
-        - apt-get install -y p7zip-full
-      build_script:
-        - ./scripts/build.sh
-        - ./scripts/build.sh arm64
+debs_cache_template: &debs_cache
+  debs_cache:
+    folder: out/debs
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-deb.sh
 
-    - name: Package DEB
-      only_if: $CIRRUS_BRANCH == 'main'
-      depends_on: Build
-      deps_script:
-        - apt-get update
-        - apt-get install -y fakeroot
-      package_script:
-        - ./scripts/package-deb.sh &
-        - ./scripts/package-deb.sh arm64 arm64 &
-        - wait
-      deb_artifacts:
-        path: "out/*"
+rpms_cache_template: &rpms_cache
+  rpms_cache:
+    folder: out/rpms
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-rpm.sh
 
-    - name: Package RPM
-      only_if: $CIRRUS_BRANCH == 'main'
-      depends_on: Build
-      deps_script:
-        - apt-get update
-        - apt-get install -y rpm
-      package_script:
-        - ./scripts/package-rpm.sh &
-        - ./scripts/package-rpm.sh arm64 aarch64 &
-        - wait
-      rpm_artifacts:
-        path: "out/*"
+rpm_repo_cache_template: &rpm_repo_cache
+  rpm_repo_cache:
+    folder: out/rpm_repo
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-rpm.sh
 
-    - name: Create RPM repo
-      only_if: $CIRRUS_BRANCH == 'main'
-      depends_on: Package RPM
-      container:
-        image: fedora:latest
-      deps_script:
-        - dnf install -y createrepo wget unzip
-      create_repo_script:
-        - wget -q https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm.zip
-        - unzip -j -d rpms rpm.zip
-        - createrepo rpms
-      rpm_repo_artifacts:
-        path: "rpms/**/*"
+build_task:
+  <<: *build_cache
+  deps_script:
+    - apt-get update
+    - apt-get install -y p7zip-full
+  build_script:
+    - ./scripts/build.sh
+    - ./scripts/build.sh arm64
 
-    - name: Deploy to Netlify
-      only_if: $CIRRUS_BRANCH == 'main'
-      environment:
-        NETLIFY_SITE_ID: 3d009bb0-c24f-4058-a84e-c3d64dba36fc
-        NETLIFY_AUTH_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
-      depends_on:
-        - Create RPM repo
-      deps_script:
-        - npm install -g netlify-cli
-      deploy_script:
-        - mkdir public
-        - cd public
-        - wget -q https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm_repo.zip
-        - unzip rpm_repo.zip
-        - netlify deploy
+package_deb_task:
+  <<: *build_cache
+  <<: *debs_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  depends_on: build
+  deps_script:
+    - apt-get update
+    - apt-get install -y fakeroot
+  package_script:
+    - ./scripts/package-deb.sh &
+    - ./scripts/package-deb.sh arm64 arm64 &
+    - wait
+
+package_rpm_task:
+  <<: *build_cache
+  <<: *rpms_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  depends_on: build
+  deps_script:
+    - apt-get update
+    - apt-get install -y rpm
+  package_script:
+    - ./scripts/package-rpm.sh &
+    - ./scripts/package-rpm.sh arm64 aarch64 &
+    - wait
+
+create_rpm_repo_task:
+  <<: *rpms_cache
+  <<: *rpm_repo_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  depends_on: package_rpm
+  container:
+    image: fedora:latest
+  deps_script:
+    - dnf install -y createrepo wget unzip
+  create_repo_script:
+    - cp -R out/rpms out/rpm_repo
+    - cd out/rpm_repo
+    - unzip -j rpm.zip
+    - createrepo .
+
+deploy_to_netlify_task:
+  <<: *rpm_repo_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  environment:
+    NETLIFY_SITE_ID: 3d009bb0-c24f-4058-a84e-c3d64dba36fc
+    NETLIFY_AUTH_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
+  depends_on:
+    - create_rpm_repo
+  deps_script:
+    - npm install -g netlify-cli
+  deploy_script:
+    - mkdir public
+    - cp -R out/rpm_repo public
+    - netlify deploy --dir public
