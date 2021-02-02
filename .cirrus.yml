@@ -68,7 +68,8 @@ create_deb_repo_task:
     - mkdir -p out/deb_repo
     - cp out/debs/* out/deb_repo
     - cd out/deb_repo
-    - apt-ftparchive packages . | gzip -c > Packages.gz
+    - apt-ftparchive packages . > Packages
+    - gzip -k Packages
     - apt-ftparchive release . > Release
 
 create_rpm_repo_task:
@@ -85,7 +86,7 @@ create_rpm_repo_task:
   create_rpm_repo_script:
     - mkdir -p out/rpm_repo
     - cp out/rpms/* out/rpm_repo
-    - createrepo --update out/rpm_repo
+    - createrepo out/rpm_repo
 
 deploy_to_netlify_task:
   deb_repo_cache: *deb_repo_cache
