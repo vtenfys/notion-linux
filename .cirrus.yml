@@ -75,7 +75,7 @@ create_rpm_repo_task:
   container:
     image: fedora:latest
   install_deps_script:
-    - dnf install -y createrepo wget unzip
+    - dnf install -y createrepo
   create_rpm_repo_script:
     - cp -R out/rpms out/rpm_repo
     - createrepo --update out/rpm_repo
