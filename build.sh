@@ -4,9 +4,9 @@ set -e
 ELECTRON_VERSION=11.2.1
 NOTION_VERSION=2.0.11
 PACKAGE_REVISION=3
-NOTION_BINARY=notion-$NOTION_VERSION.exe
 BUILD_ARCH=${1:-x64}
 BUILD_DIR=build/$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
+NOTION_BINARY=$BUILD_DIR/notion-$NOTION_VERSION.exe
 PATH="node_modules/.bin:$PATH"
 
 check-command() {
@@ -28,18 +28,18 @@ if ! [ -d node_modules ]; then
   npm install
 fi
 
-# Download Notion executable
-if ! [ -f $NOTION_BINARY ]; then
-  origin=https://desktop-release.notion-static.com
-  wget "$origin/Notion Setup $NOTION_VERSION.exe" -O $NOTION_BINARY
-fi
-
 # Setup the build directory
 mkdir -p "$BUILD_DIR"
 
+# Download Notion executable
+if ! [ -f "$NOTION_BINARY" ]; then
+  origin=https://desktop-release.notion-static.com
+  wget "$origin/Notion Setup $NOTION_VERSION.exe" -O "$NOTION_BINARY"
+fi
+
 # Extract the Notion executable
 if ! [ -f "$BUILD_DIR/notion-exe/\$PLUGINSDIR/app-64.7z" ]; then
-  7z x $NOTION_BINARY -o"$BUILD_DIR/notion-exe"
+  7z x "$NOTION_BINARY" -o"$BUILD_DIR/notion-exe"
 fi
 
 # Extract the app bundle
