@@ -2,11 +2,14 @@ container:
   image: node:buster
   memory: 8G
 
-build_task:
+node_modules_cache_template: &node_modules_cache
   node_modules_cache:
     folder: node_modules
     fingerprint_script: cat package-lock.json
     populate_script: npm install
+
+build_task:
+  <<: *node_modules_cache
   build_folder_cache:
     folder: build
     fingerprint_script: cat build.sh
@@ -20,13 +23,14 @@ build_task:
     path: "build/*"
 
 package_deb_task:
+  <<: *node_modules_cache
   depends_on: build
   install_deps_script:
     - apt-get update
     - apt-get install -y fakeroot
   restore_artifacts_script:
-    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build.zip
-    - unzip build.zip
+    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build_result.zip
+    - unzip build_result.zip
   package_script:
     - ./package-deb.sh &
     - ./package-deb.sh arm64 arm64 &
@@ -35,13 +39,14 @@ package_deb_task:
     path: "out/*"
 
 package_rpm_task:
+  <<: *node_modules_cache
   depends_on: build
   install_deps_script:
     - apt-get update
     - apt-get install -y rpm
   restore_artifacts_script:
-    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build.zip
-    - unzip build.zip
+    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build_result.zip
+    - unzip build_result.zip
   package_script:
     - ./package-rpm.sh &
     - ./package-rpm.sh arm64 aarch64 &
