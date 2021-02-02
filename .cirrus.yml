@@ -19,6 +19,8 @@ build_task:
   build_script:
     - ./build.sh
     - ./build.sh arm64
+  diagnose_build_script:
+    - ls build
   build_result_artifacts:
     path: "build/*"
 
