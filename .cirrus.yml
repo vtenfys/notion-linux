@@ -67,10 +67,11 @@ create_deb_repo_task:
     - apt-get update
     - apt-get install -y dpkg-dev
   create_deb_repo_script:
-    - mkdir -p out/deb_repo
-    - cp out/debs/* out/deb_repo
+    - rm -rf out/deb_repo
+    - cp -R out/debs out/deb_repo
     - cd out/deb_repo
-    - dpkg-scanpackages -m . | gzip -c > Packages.gz
+    - dpkg-scanpackages -m . > Packages
+    - apt-ftparchive release . > Release
 
 create_rpm_repo_task:
   rpms_cache: *rpms_cache
@@ -86,8 +87,8 @@ create_rpm_repo_task:
   install_deps_script:
     - dnf install -y createrepo
   create_rpm_repo_script:
-    - mkdir -p out/rpm_repo
-    - cp out/rpms/* out/rpm_repo
+    - rm -rf out/rpm_repo
+    - cp -R out/rpms out/rpm_repo
     - createrepo --update out/rpm_repo
 
 deploy_to_netlify_task:
