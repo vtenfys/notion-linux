@@ -13,7 +13,7 @@ task:
 
   matrix:
     - name: Build
-      install_deps_script:
+      deps_script:
         - apt-get update
         - apt-get install -y p7zip-full
       build_script:
@@ -23,7 +23,7 @@ task:
     - name: Package DEB
       only_if: $CIRRUS_BRANCH == 'main'
       depends_on: Build
-      install_deps_script:
+      deps_script:
         - apt-get update
         - apt-get install -y fakeroot
       package_script:
@@ -36,7 +36,7 @@ task:
     - name: Package RPM
       only_if: $CIRRUS_BRANCH == 'main'
       depends_on: Build
-      install_deps_script:
+      deps_script:
         - apt-get update
         - apt-get install -y rpm
       package_script:
@@ -45,3 +45,17 @@ task:
         - wait
       rpm_artifacts:
         path: "out/*"
+
+    - name: Create RPM repository
+      only_if: $CIRRUS_BRANCH == 'main'
+      depends_on: Package RPM
+      container:
+        image: fedora:latest
+      deps:script:
+        - dnf install createrepo
+      package_script:
+        - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm.zip
+        - unzip -j -d rpms rpm.zip
+        - createrepo rpms
+      rpm_repo_artifacts:
+        path: "rpms/**/*"
