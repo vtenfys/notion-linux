@@ -36,7 +36,7 @@ mkdir -p "$BUILD_DIR"
 # Download Notion executable
 if ! [ -f "$RESOURCE_DIR/notion.exe" ]; then
   origin=https://desktop-release.notion-static.com
-  wget "$origin/Notion Setup $NOTION_VERSION.exe" -O "$RESOURCE_DIR/notion.exe"
+  wget -q "$origin/Notion Setup $NOTION_VERSION.exe" -O "$RESOURCE_DIR/notion.exe"
 fi
 
 # Extract the Notion executable
