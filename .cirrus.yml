@@ -56,9 +56,7 @@ create_deb_repo_task:
   debs_cache: *debs_cache
   deb_repo_cache: &deb_repo_cache
     folder: out/deb_repo
-    fingerprint_script:
-      - cat scripts/build.sh
-      - cat scripts/package-deb.sh
+    fingerprint_script: echo $CIRRUS_BUILD_ID
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_deb
   container:
@@ -67,8 +65,8 @@ create_deb_repo_task:
     - apt-get update
     - apt-get install -y apt-utils
   create_deb_repo_script:
-    - rm -rf out/deb_repo
-    - cp -R out/debs out/deb_repo
+    - mkdir -p out/deb_repo
+    - cp out/debs/* out/deb_repo
     - cd out/deb_repo
     - apt-ftparchive packages . | gzip -c > Packages.gz
     - apt-ftparchive release . > Release
@@ -77,9 +75,7 @@ create_rpm_repo_task:
   rpms_cache: *rpms_cache
   rpm_repo_cache: &rpm_repo_cache
     folder: out/rpm_repo
-    fingerprint_script:
-      - cat scripts/build.sh
-      - cat scripts/package-rpm.sh
+    fingerprint_script: echo $CIRRUS_BUILD_ID
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_rpm
   container:
@@ -87,8 +83,8 @@ create_rpm_repo_task:
   install_deps_script:
     - dnf install -y createrepo
   create_rpm_repo_script:
-    - rm -rf out/rpm_repo
-    - cp -R out/rpms out/rpm_repo
+    - mkdir -p out/rpm_repo
+    - cp out/rpms/* out/rpm_repo
     - createrepo --update out/rpm_repo
 
 deploy_to_netlify_task:
