@@ -15,7 +15,7 @@ if ! command -v rpmbuild >/dev/null 2>&1; then
 fi
 
 # Create Red Hat package
-if ! [ -f "out/notion-desktop-$NOTION_VERSION-$PACKAGE_REVISION.$PACKAGE_ARCH.rpm" ]; then
+if ! [ -f "out/rpms/notion-desktop-$NOTION_VERSION-$PACKAGE_REVISION.$PACKAGE_ARCH.rpm" ]; then
   electron-installer-redhat \
     --src "$BUILD_DIR/app-linux-$BUILD_ARCH" \
     --dest out/rpms \
