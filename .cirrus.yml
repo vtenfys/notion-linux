@@ -64,7 +64,7 @@ task:
       only_if: $CIRRUS_BRANCH == 'main'
       environment:
         NETLIFY_SITE_ID: 3d009bb0-c24f-4058-a84e-c3d64dba36fc
-        NETLIFY_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
+        NETLIFY_AUTH_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
       depends_on:
         - Create RPM repo
       deps_script:
