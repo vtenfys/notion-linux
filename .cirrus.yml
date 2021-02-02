@@ -62,8 +62,16 @@ task:
 
     - name: Deploy to Netlify
       only_if: $CIRRUS_BRANCH == 'main'
+      environment:
+        NETLIFY_SITE_ID: 3d009bb0-c24f-4058-a84e-c3d64dba36fc
+        NETLIFY_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
       depends_on:
         - Create RPM repo
-      environment:
-        BUILD_HOOK_URL: ENCRYPTED[10dc237d88473e08358f0544c348a948827900f432407f329a1002297ba6a716b2f37bf40d527279e0f9cc2c2565657f]
-      deploy_script: curl -X POST -d {} $BUILD_HOOK_URL
+      deps_script:
+        - npm install -g netlify-cli
+      deploy_script:
+        - mkdir public
+        - cd public
+        - wget -q https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm_repo.zip
+        - unzip rpm_repo.zip
+        - netlify deploy
