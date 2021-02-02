@@ -9,7 +9,7 @@ task:
     populate_script: npm install
   build_folder_cache:
     folder: build
-    fingerprint_script: cat build.sh
+    fingerprint_script: cat scripts/build.sh
 
   matrix:
     - name: Build
@@ -17,8 +17,8 @@ task:
         - apt-get update
         - apt-get install -y p7zip-full
       build_script:
-        - ./build.sh
-        - ./build.sh arm64
+        - ./scripts/build.sh
+        - ./scripts/build.sh arm64
 
     - name: Package DEB
       only_if: $CIRRUS_BRANCH == 'main'
@@ -27,8 +27,8 @@ task:
         - apt-get update
         - apt-get install -y fakeroot
       package_script:
-        - ./package-deb.sh &
-        - ./package-deb.sh arm64 arm64 &
+        - ./scripts/package-deb.sh &
+        - ./scripts/package-deb.sh arm64 arm64 &
         - wait
       deb_artifacts:
         path: "out/*"
@@ -40,8 +40,8 @@ task:
         - apt-get update
         - apt-get install -y rpm
       package_script:
-        - ./package-rpm.sh &
-        - ./package-rpm.sh arm64 aarch64 &
+        - ./scripts/package-rpm.sh &
+        - ./scripts/package-rpm.sh arm64 aarch64 &
         - wait
       rpm_artifacts:
         path: "out/*"

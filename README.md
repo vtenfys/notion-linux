@@ -53,17 +53,17 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
 To produce an AMD64 build, run the following:
 
 ```sh
-./build.sh        # always run
-./package-deb.sh  # run to produce a DEB
-./package-rpm.sh  # run to produce an RPM
+./scripts/build.sh        # always run
+./scripts/package-deb.sh  # run to produce a DEB
+./scripts/package-rpm.sh  # run to produce an RPM
 ```
 
 To produce an ARM64 build, run the following:
 
 ```sh
-./build.sh arm64                # always run
-./package-deb.sh arm64 arm64    # run to produce a DEB
-./package-rpm.sh arm64 aarch64  # run to produce an RPM
+./scripts/build.sh arm64                # always run
+./scripts/package-deb.sh arm64 arm64    # run to produce a DEB
+./scripts/package-rpm.sh arm64 aarch64  # run to produce an RPM
 ```
 
 Once complete, you should have a DEB and/or RPM package in the `out` directory.
