@@ -59,18 +59,3 @@ task:
         - createrepo rpms
       rpm_repo_artifacts:
         path: "rpms/**/*"
-
-    - name: Publish repos
-      only_if: $CIRRUS_BRANCH == 'main'
-      depends_on:
-        - Create RPM repo
-      environment:
-        SURGE_TOKEN: ENCRYPTED[4e28956b31ea3c2eff9bc84d6eb116f24721b707a96799f4b4470f40b297b826e25ae210180883366c204bffb728d7b0]
-      deps_script:
-        - npm -g install surge
-      publish_script:
-        - mkdir -p public
-        - cd public
-        - wget -q https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm_repo.zip
-        - unzip rpm_repo.zip
-        - surge . defective-cushion.surge.sh
