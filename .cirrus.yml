@@ -53,8 +53,8 @@ task:
         image: fedora:latest
       deps_script:
         - dnf install -y createrepo wget unzip
-      package_script:
-        - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm.zip
+      create_repo_script:
+        - wget -q https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm.zip
         - unzip -j -d rpms rpm.zip
         - createrepo rpms
       rpm_repo_artifacts:
@@ -71,6 +71,6 @@ task:
       publish_script:
         - mkdir -p public
         - cd public
-        - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm_repo.zip
+        - wget -q https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm_repo.zip
         - unzip rpm_repo.zip
-        - surge --domain defective-cushion.surge.sh
+        - surge . defective-cushion.surge.sh
