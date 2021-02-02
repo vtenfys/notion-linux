@@ -38,20 +38,10 @@ sudo dnf install notion-desktop
    Using Ubuntu or Debian with `apt`:
 
    ```sh
-   sudo apt install p7zip-full imagemagick fakeroot make g++
+   sudo apt install p7zip-full imagemagick make g++ fakeroot rpm
    ```
 
-   Using Fedora or CentOS with `dnf`:
-
-   ```sh
-   sudo dnf install p7zip ImageMagick make gcc-c++ rpm-build
-   ```
-
-   Using openSUSE with `zypper`:
-
-   ```sh
-   sudo zypper install p7zip-full ImageMagick make gcc-c++ rpm-build
-   ```
+   Only Debian-based distributions are officially supported for builds.
 
 ## Build
 
