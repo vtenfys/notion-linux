@@ -12,17 +12,39 @@ build_task:
     fingerprint_script: cat build.sh
   install_deps_script:
     - apt-get update
-    - apt-get install -y p7zip-full fakeroot rpm
+    - apt-get install -y p7zip-full
   build_script:
     - ./build.sh
     - ./build.sh arm64
-  package_deb_script:
+  build_result_artifacts:
+    path: "build/*"
+
+package_deb_task:
+  depends_on: build
+  install_deps_script:
+    - apt-get update
+    - apt-get install -y fakeroot
+  restore_artifacts_script:
+    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build.zip
+    - unzip build.zip
+  package_script:
     - ./package-deb.sh &
     - ./package-deb.sh arm64 arm64 &
     - wait
-  package_rpm_script:
+  package_deb_artifacts:
+    path: "out/*"
+
+package_rpm_task:
+  depends_on: build
+  install_deps_script:
+    - apt-get update
+    - apt-get install -y rpm
+  restore_artifacts_script:
+    - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/build.zip
+    - unzip build.zip
+  package_script:
     - ./package-rpm.sh &
     - ./package-rpm.sh arm64 aarch64 &
     - wait
-  package_artifacts:
+  package_rpm_artifacts:
     path: "out/*"
