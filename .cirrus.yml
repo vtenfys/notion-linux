@@ -68,8 +68,8 @@ create_deb_repo_task:
     - apt-get install -y dpkg-dev
   create_deb_repo_script:
     - cp -R out/debs out/deb_repo
-    - dpkg-scanpackages -m out/deb_repo > out/deb_repo/Packages
-    - gzip out/deb_repo/Packages
+    - cd out/deb_repo
+    - dpkg-scanpackages -m . | gzip -c > Packages.gz
 
 create_rpm_repo_task:
   rpms_cache: *rpms_cache
