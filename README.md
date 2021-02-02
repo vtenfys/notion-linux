@@ -2,17 +2,22 @@
 
 Build Notion packages for Linux, using resources extracted from Notion's Windows installer.
 
-## Download pre-built packages
+## Install pre-built packages
 
 ### Ubuntu, Debian, Linux Mint (DEB)
 
 - [Download the latest DEB package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-3/notion-desktop_2.0.11-3_amd64.deb)
 - [Download the latest DEB package for 64-bit ARM (e.g. Raspberry Pi)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-3/notion-desktop_2.0.11-3_arm64.deb)
 
-### Fedora, CentOS, openSUSE (RPM)
+### Fedora, CentOS
 
-- [Download the latest RPM package for 64-bit Intel/AMD (most systems)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-3/notion-desktop-2.0.11-3.x86_64.rpm)
-- [Download the latest RPM package for 64-bit ARM (e.g. Raspberry Pi)](https://github.com/davidbailey00/notion-linux-builder/releases/download/v2.0.11-3/notion-desktop-2.0.11-3.aarch64.rpm)
+Run the following in a terminal:
+
+```sh
+wget https://raw.githubusercontent.com/davidbailey00/notion-linux-builder/main/repos/notion-linux.repo
+sudo mv notion-linux.repo /etc/yum.repos.d/notion-linux.repo
+sudo dnf install notion-desktop
+```
 
 ## Requirements
 

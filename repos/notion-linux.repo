@@ -1,0 +1,5 @@
+[notion-linux]
+name=Notion for Linux
+baseurl=https://notion.davidbailey.codes/rpms/
+enabled=1
+gpgcheck=0
