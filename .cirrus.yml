@@ -30,7 +30,7 @@ task:
         - ./package-deb.sh &
         - ./package-deb.sh arm64 arm64 &
         - wait
-      package_deb_artifacts:
+      deb_artifacts:
         path: "out/*"
 
     - name: Package RPM
@@ -43,5 +43,5 @@ task:
         - ./package-rpm.sh &
         - ./package-rpm.sh arm64 aarch64 &
         - wait
-      package_rpm_artifacts:
+      rpm_artifacts:
         path: "out/*"
