@@ -5,8 +5,9 @@ ELECTRON_VERSION=11.2.1
 NOTION_VERSION=2.0.11
 PACKAGE_REVISION=3
 BUILD_ARCH=${1:-x64}
-BUILD_DIR=build/$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
-NOTION_BINARY=$BUILD_DIR/notion-$NOTION_VERSION.exe
+
+RESOURCE_DIR=build/resources-$NOTION_VERSION
+BUILD_DIR=build/build-$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
 PATH="node_modules/.bin:$PATH"
 
 check-command() {
@@ -28,29 +29,30 @@ if ! [ -d node_modules ]; then
   npm install
 fi
 
-# Setup the build directory
+# Setup working directories
+mkdir -p "$RESOURCE_DIR"
 mkdir -p "$BUILD_DIR"
 
 # Download Notion executable
-if ! [ -f "$NOTION_BINARY" ]; then
+if ! [ -f "$RESOURCE_DIR/notion.exe" ]; then
   origin=https://desktop-release.notion-static.com
-  wget "$origin/Notion Setup $NOTION_VERSION.exe" -O "$NOTION_BINARY"
+  wget "$origin/Notion Setup $NOTION_VERSION.exe" -O "$RESOURCE_DIR/notion.exe"
 fi
 
 # Extract the Notion executable
-if ! [ -f "$BUILD_DIR/notion-exe/\$PLUGINSDIR/app-64.7z" ]; then
-  7z x "$NOTION_BINARY" -o"$BUILD_DIR/notion-exe"
+if ! [ -f "$RESOURCE_DIR/notion-exe/\$PLUGINSDIR/app-64.7z" ]; then
+  7z x "$RESOURCE_DIR/notion.exe" -o"$RESOURCE_DIR/notion-exe"
 fi
 
 # Extract the app bundle
-if ! [ -f "$BUILD_DIR/app-bundle/resources/app.asar" ]; then
-  7z x "$BUILD_DIR/notion-exe/\$PLUGINSDIR/app-64.7z" -o"$BUILD_DIR"/app-bundle
+if ! [ -f "$RESOURCE_DIR/app-bundle/resources/app.asar" ]; then
+  7z x "$RESOURCE_DIR/notion-exe/\$PLUGINSDIR/app-64.7z" -o"$RESOURCE_DIR/app-bundle"
 fi
 
 # Extract the app container
 if ! [ -d "$BUILD_DIR/app-unpacked" ]; then
   asar extract \
-    "$BUILD_DIR/app-bundle/resources/app.asar" "$BUILD_DIR/app-unpacked"
+    "$RESOURCE_DIR/app-bundle/resources/app.asar" "$BUILD_DIR/app-unpacked"
 fi
 
 # Install NPM dependencies and apply patches
