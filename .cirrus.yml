@@ -2,7 +2,7 @@ container:
   image: node:buster
   memory: 8G
 
-caching_template: &caching
+task:
   node_modules_cache:
     folder: node_modules
     fingerprint_script: cat package-lock.json
@@ -11,39 +11,37 @@ caching_template: &caching
     folder: build
     fingerprint_script: cat build.sh
 
-build_task:
-  <<: *caching
-  install_deps_script:
-    - apt-get update
-    - apt-get install -y p7zip-full
-  build_script:
-    - ./build.sh
-    - ./build.sh arm64
+  matrix:
+    - name: Build
+      install_deps_script:
+        - apt-get update
+        - apt-get install -y p7zip-full
+      build_script:
+        - ./build.sh
+        - ./build.sh arm64
 
-package_deb_task:
-  <<: *caching
-  only_if: $CIRRUS_BRANCH == 'main'
-  depends_on: build
-  install_deps_script:
-    - apt-get update
-    - apt-get install -y fakeroot
-  package_script:
-    - ./package-deb.sh &
-    - ./package-deb.sh arm64 arm64 &
-    - wait
-  package_deb_artifacts:
-    path: "out/*"
+    - name: Package DEB
+      only_if: $CIRRUS_BRANCH == 'main'
+      depends_on: Build
+      install_deps_script:
+        - apt-get update
+        - apt-get install -y fakeroot
+      package_script:
+        - ./package-deb.sh &
+        - ./package-deb.sh arm64 arm64 &
+        - wait
+      package_deb_artifacts:
+        path: "out/*"
 
-package_rpm_task:
-  <<: *caching
-  only_if: $CIRRUS_BRANCH == 'main'
-  depends_on: build
-  install_deps_script:
-    - apt-get update
-    - apt-get install -y rpm
-  package_script:
-    - ./package-rpm.sh &
-    - ./package-rpm.sh arm64 aarch64 &
-    - wait
-  package_rpm_artifacts:
-    path: "out/*"
+    - name: Package RPM
+      only_if: $CIRRUS_BRANCH == 'main'
+      depends_on: Build
+      install_deps_script:
+        - apt-get update
+        - apt-get install -y rpm
+      package_script:
+        - ./package-rpm.sh &
+        - ./package-rpm.sh arm64 aarch64 &
+        - wait
+      package_rpm_artifacts:
+        path: "out/*"
