@@ -39,9 +39,7 @@ sudo dnf install notion-desktop
    npm install -g npm@7
    ```
 
-3. Install other packages required for building the app.
-
-   Using Ubuntu or Debian with `apt`:
+3. Install other packages required for building the app, e.g. using `apt`:
 
    ```sh
    sudo apt install p7zip-full imagemagick make g++ fakeroot rpm
