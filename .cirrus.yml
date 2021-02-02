@@ -70,7 +70,7 @@ create_deb_repo_task:
     - rm -rf out/deb_repo
     - cp -R out/debs out/deb_repo
     - cd out/deb_repo
-    - dpkg-scanpackages -m . > Packages
+    - dpkg-scanpackages -m . | gzip -c > Packages.gz
     - apt-ftparchive release . > Release
 
 create_rpm_repo_task:
