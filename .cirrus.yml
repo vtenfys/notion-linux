@@ -12,25 +12,28 @@ build_cache_template: &build_cache
     fingerprint_script: cat scripts/build.sh
 
 debs_cache_template: &debs_cache
-  debs_cache:
-    folder: out/debs
-    fingerprint_script:
-      - cat scripts/build.sh
-      - cat scripts/package-deb.sh
+  folder: out/debs
+  fingerprint_script:
+    - cat scripts/build.sh
+    - cat scripts/package-deb.sh
 
 rpms_cache_template: &rpms_cache
-  rpms_cache:
-    folder: out/rpms
-    fingerprint_script:
-      - cat scripts/build.sh
-      - cat scripts/package-rpm.sh
+  folder: out/rpms
+  fingerprint_script:
+    - cat scripts/build.sh
+    - cat scripts/package-rpm.sh
+
+deb_repo_cache_template: &deb_repo_cache
+  folder: out/deb_repo
+  fingerprint_script:
+    - cat scripts/build.sh
+    - cat scripts/package-deb.sh
 
 rpm_repo_cache_template: &rpm_repo_cache
-  rpm_repo_cache:
-    folder: out/rpm_repo
-    fingerprint_script:
-      - cat scripts/build.sh
-      - cat scripts/package-rpm.sh
+  folder: out/rpm_repo
+  fingerprint_script:
+    - cat scripts/build.sh
+    - cat scripts/package-rpm.sh
 
 build_app_task:
   <<: *build_cache
@@ -43,7 +46,7 @@ build_app_task:
 
 package_deb_task:
   <<: *build_cache
-  <<: *debs_cache
+  debs_cache: *debs_cache
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: build_app
   install_deps_script:
@@ -56,7 +59,7 @@ package_deb_task:
 
 package_rpm_task:
   <<: *build_cache
-  <<: *rpms_cache
+  rpms_cache: *rpms_cache
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: build_app
   install_deps_script:
@@ -67,9 +70,23 @@ package_rpm_task:
     - ./scripts/package-rpm.sh arm64 aarch64 &
     - wait
 
+create_deb_repo_task:
+  debs_cache: *debs_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  depends_on: package_deb
+  container:
+    image: ubuntu:latest
+  install_deps_script:
+    - apt-get update
+    - apt-get install -y dpkg-dev
+  create_deb_repo_script:
+    - cp -R out/debs out/deb_repo
+    - dpkg-scanpackages out/deb_repo > out/deb_repo/Packages
+    - gzip out/deb_repo/Packagds
+
 create_rpm_repo_task:
-  <<: *rpms_cache
-  <<: *rpm_repo_cache
+  rpms_cache: *rpms_cache
+  rpm_repo_cache: *rpm_repo_cache
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_rpm
   container:
@@ -81,17 +98,20 @@ create_rpm_repo_task:
     - createrepo --update out/rpm_repo
 
 deploy_to_netlify_task:
-  <<: *rpm_repo_cache
+  deb_repo_cache: *deb_repo_cache
+  rpm_repo_cache: *rpm_repo_cache
   only_if: $CIRRUS_BRANCH == 'main'
   environment:
     NETLIFY_SITE_ID: 3d009bb0-c24f-4058-a84e-c3d64dba36fc
     NETLIFY_AUTH_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
   depends_on:
+    - create_deb_repo
     - create_rpm_repo
   install_deps_script:
     - npm install -g netlify-cli
   netlify_deploy_script:
     - mkdir public
     - cp repos/* public
+    - cp -R out/deb_repo public/debs
     - cp -R out/rpm_repo public/rpms
     - netlify deploy --prod --dir public
