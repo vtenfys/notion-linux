@@ -6,6 +6,9 @@ build_task:
     folder: node_modules
     fingerprint_script: cat package-lock.json
     populate_script: npm install
+  build_folder_cache:
+    folder: build
+    fingerprint_script: cat build.sh
   install_deps_script:
     - apt-get update
     - apt-get install -y p7zip-full fakeroot rpm
