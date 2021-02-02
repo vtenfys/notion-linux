@@ -32,12 +32,12 @@ rpm_repo_cache_template: &rpm_repo_cache
       - cat scripts/build.sh
       - cat scripts/package-rpm.sh
 
-build_task:
+build_app_task:
   <<: *build_cache
-  deps_script:
+  install_deps_script:
     - apt-get update
     - apt-get install -y p7zip-full
-  build_script:
+  build_app_script:
     - ./scripts/build.sh
     - ./scripts/build.sh arm64
 
@@ -45,11 +45,11 @@ package_deb_task:
   <<: *build_cache
   <<: *debs_cache
   only_if: $CIRRUS_BRANCH == 'main'
-  depends_on: build
-  deps_script:
+  depends_on: build_app
+  install_deps_script:
     - apt-get update
     - apt-get install -y fakeroot
-  package_script:
+  package_deb_script:
     - ./scripts/package-deb.sh &
     - ./scripts/package-deb.sh arm64 arm64 &
     - wait
@@ -58,11 +58,11 @@ package_rpm_task:
   <<: *build_cache
   <<: *rpms_cache
   only_if: $CIRRUS_BRANCH == 'main'
-  depends_on: build
-  deps_script:
+  depends_on: build_app
+  install_deps_script:
     - apt-get update
     - apt-get install -y rpm
-  package_script:
+  package_rpm_script:
     - ./scripts/package-rpm.sh &
     - ./scripts/package-rpm.sh arm64 aarch64 &
     - wait
@@ -74,13 +74,11 @@ create_rpm_repo_task:
   depends_on: package_rpm
   container:
     image: fedora:latest
-  deps_script:
+  install_deps_script:
     - dnf install -y createrepo wget unzip
-  create_repo_script:
+  create_rpm_repo_script:
     - cp -R out/rpms out/rpm_repo
-    - cd out/rpm_repo
-    - unzip -j rpm.zip
-    - createrepo .
+    - createrepo out/rpm_repo
 
 deploy_to_netlify_task:
   <<: *rpm_repo_cache
@@ -90,9 +88,9 @@ deploy_to_netlify_task:
     NETLIFY_AUTH_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
   depends_on:
     - create_rpm_repo
-  deps_script:
+  install_deps_script:
     - npm install -g netlify-cli
-  deploy_script:
+  netlify_deploy_script:
     - mkdir public
     - cp -R out/rpm_repo public
     - netlify deploy --dir public
