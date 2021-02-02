@@ -2,41 +2,15 @@ container:
   image: node:buster
   memory: 8G
 
-build_cache_template: &build_cache
-  node_modules_cache:
-    folder: node_modules
-    fingerprint_script: cat package-lock.json
-    populate_script: npm install
-  build_folder_cache:
-    folder: build
-    fingerprint_script: cat scripts/build.sh
-
-debs_cache_template: &debs_cache
-  folder: out/debs
-  fingerprint_script:
-    - cat scripts/build.sh
-    - cat scripts/package-deb.sh
-
-rpms_cache_template: &rpms_cache
-  folder: out/rpms
-  fingerprint_script:
-    - cat scripts/build.sh
-    - cat scripts/package-rpm.sh
-
-deb_repo_cache_template: &deb_repo_cache
-  folder: out/deb_repo
-  fingerprint_script:
-    - cat scripts/build.sh
-    - cat scripts/package-deb.sh
-
-rpm_repo_cache_template: &rpm_repo_cache
-  folder: out/rpm_repo
-  fingerprint_script:
-    - cat scripts/build.sh
-    - cat scripts/package-rpm.sh
-
 build_app_task:
-  <<: *build_cache
+  <<: &build_cache
+    node_modules_cache:
+      folder: node_modules
+      fingerprint_script: cat package-lock.json
+      populate_script: npm install
+    build_folder_cache:
+      folder: build
+      fingerprint_script: cat scripts/build.sh
   install_deps_script:
     - apt-get update
     - apt-get install -y p7zip-full
@@ -46,7 +20,11 @@ build_app_task:
 
 package_deb_task:
   <<: *build_cache
-  debs_cache: *debs_cache
+  debs_cache: &debs_cache
+    folder: out/debs
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-deb.sh
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: build_app
   install_deps_script:
@@ -59,7 +37,11 @@ package_deb_task:
 
 package_rpm_task:
   <<: *build_cache
-  rpms_cache: *rpms_cache
+  rpms_cache: &rpms_cache
+    folder: out/rpms
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-rpm.sh
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: build_app
   install_deps_script:
@@ -72,6 +54,11 @@ package_rpm_task:
 
 create_deb_repo_task:
   debs_cache: *debs_cache
+  deb_repo_cache: &deb_repo_cache
+    folder: out/deb_repo
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-deb.sh
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_deb
   container:
@@ -86,7 +73,11 @@ create_deb_repo_task:
 
 create_rpm_repo_task:
   rpms_cache: *rpms_cache
-  rpm_repo_cache: *rpm_repo_cache
+  rpm_repo_cache: &rpm_repo_cache
+    folder: out/rpm_repo
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-rpm.sh
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_rpm
   container:
