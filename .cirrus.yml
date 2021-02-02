@@ -8,7 +8,7 @@ build_task:
     populate_script: npm install
   install_deps_script:
     - apt-get update
-    - apt-get install -y p7zip-full rpm
+    - apt-get install -y p7zip-full fakeroot rpm
   build_script:
     - ./build.sh
     - ./build.sh arm64
