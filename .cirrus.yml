@@ -59,3 +59,11 @@ task:
         - createrepo rpms
       rpm_repo_artifacts:
         path: "rpms/**/*"
+
+    - name: Deploy to Netlify
+      only_if: $CIRRUS_BRANCH == 'main'
+      depends_on:
+        - Create RPM repo
+      environment:
+        BUILD_HOOK_URL: ENCRYPTED[10dc237d88473e08358f0544c348a948827900f432407f329a1002297ba6a716b2f37bf40d527279e0f9cc2c2565657f]
+      deploy_script: curl -X POST -d {} $BUILD_HOOK_URL
