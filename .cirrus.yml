@@ -52,7 +52,7 @@ task:
       container:
         image: fedora:latest
       deps:script:
-        - dnf install createrepo
+        - dnf install -y createrepo
       package_script:
         - wget https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/rpm.zip
         - unzip -j -d rpms rpm.zip
