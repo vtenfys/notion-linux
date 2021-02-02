@@ -1,0 +1,14 @@
+container:
+  image: node:buster
+
+build_task:
+  node_modules_cache:
+    folder: node_modules
+    fingerprint_script: cat package-lock.json
+    populate_script: npm install
+  install_deps_script:
+    - apt-get update
+    - apt-get install -y p7zip-full
+  build_script:
+    - ./build.sh
+    - ./build.sh arm64
