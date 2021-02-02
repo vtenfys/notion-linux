@@ -1,5 +1,6 @@
 container:
   image: node:buster
+  memory: 8G
 
 build_task:
   node_modules_cache:
