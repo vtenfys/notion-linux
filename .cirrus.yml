@@ -93,5 +93,5 @@ deploy_to_netlify_task:
   netlify_deploy_script:
     - mkdir public
     - cp repos/* public
-    - cp -R out/rpm_repo public
+    - cp -R out/rpm_repo public/rpms
     - netlify deploy --prod --dir public
