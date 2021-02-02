@@ -22,6 +22,7 @@ build_task:
 
 package_deb_task:
   <<: *caching
+  only_if: $CIRRUS_BRANCH == 'main'
   depends_on: build
   install_deps_script:
     - apt-get update
@@ -35,6 +36,7 @@ package_deb_task:
 
 package_rpm_task:
   <<: *caching
+  only_if: $CIRRUS_BRANCH == 'main'
   depends_on: build
   install_deps_script:
     - apt-get update
