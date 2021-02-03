@@ -92,23 +92,6 @@ create_rpm_repo_task:
     - cp out/rpms/* out/rpm_repo
     - createrepo --update out/rpm_repo
 
-deploy_to_netlify_task:
-  deb_repo_cache: *deb_repo_cache
-  rpm_repo_cache: *rpm_repo_cache
-  only_if: $CIRRUS_BRANCH == 'main'
-  environment:
-    NETLIFY_SITE_ID: 3d009bb0-c24f-4058-a84e-c3d64dba36fc
-    NETLIFY_AUTH_TOKEN: ENCRYPTED[138abf208652671d98e4c6975083a5b73424108594e4b1ab11bbbf5684ab23f120d08c56aba9bb9a49858cb7f882ab85]
-  depends_on:
-    - create_deb_repo
-    - create_rpm_repo
-  install_deps_script:
-    - npm install -g netlify-cli
-  netlify_deploy_script:
-    - cp -R out/deb_repo public/debs
-    - cp -R out/rpm_repo public/rpms
-    - netlify deploy --prod --dir public
-
 deploy_to_firebase_task:
   deb_repo_cache: *deb_repo_cache
   rpm_repo_cache: *rpm_repo_cache
