@@ -1,3 +1,0 @@
-[build]
-command = "./scripts/netlify-publish.sh"
-publish = "public"
