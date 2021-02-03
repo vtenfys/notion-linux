@@ -10,7 +10,9 @@ build_app_task:
       populate_script: npm install
     build_folder_cache:
       folder: build
-      fingerprint_script: cat scripts/build.sh
+      fingerprint_script:
+        - cat package-lock.json
+        - cat scripts/build.sh
   install_deps_script:
     - apt-get update
     - apt-get install -y p7zip-full
@@ -23,6 +25,7 @@ package_deb_task:
   debs_cache: &debs_cache
     folder: out/debs
     fingerprint_script:
+      - cat package-lock.json
       - cat scripts/build.sh
       - cat scripts/package-deb.sh
   only_if: $CIRRUS_BRANCH == 'main'
@@ -40,6 +43,7 @@ package_rpm_task:
   rpms_cache: &rpms_cache
     folder: out/rpms
     fingerprint_script:
+      - cat package-lock.json
       - cat scripts/build.sh
       - cat scripts/package-rpm.sh
   only_if: $CIRRUS_BRANCH == 'main'
@@ -75,6 +79,7 @@ create_rpm_repo_task:
   rpm_repo_cache: &rpm_repo_cache
     folder: out/rpm_repo
     fingerprint_script:
+      - cat package-lock.json
       - cat scripts/build.sh
       - cat scripts/package-rpm.sh
   only_if: $CIRRUS_BRANCH == 'main'
