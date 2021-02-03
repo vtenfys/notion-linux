@@ -108,3 +108,19 @@ deploy_to_netlify_task:
     - cp -R out/deb_repo public/debs
     - cp -R out/rpm_repo public/rpms
     - netlify deploy --prod --dir public
+
+deploy_to_firebase_task:
+  deb_repo_cache: *deb_repo_cache
+  rpm_repo_cache: *rpm_repo_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  environment:
+    FIREBASE_TOKEN: ENCRYPTED[f3ae7ef0f415d3221d39d7f4d7c6547ef1f78e588db1c5ba876d601eba3e524eff34d9af4058eed3a3339e7a0c63c44b]
+  depends_on:
+    - create_deb_repo
+    - create_rpm_repo
+  install_deps_script:
+    - npm install -g firebase-tools
+  netlify_deploy_script:
+    - cp -R out/deb_repo public/debs
+    - cp -R out/rpm_repo public/rpms
+    - firebase deploy --token "$FIREBASE_TOKEN"
