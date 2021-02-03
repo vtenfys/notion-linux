@@ -120,7 +120,7 @@ deploy_to_firebase_task:
     - create_rpm_repo
   install_deps_script:
     - npm install -g firebase-tools
-  netlify_deploy_script:
+  firebase_deploy_script:
     - cp -R out/deb_repo public/debs
     - cp -R out/rpm_repo public/rpms
     - firebase deploy --token "$FIREBASE_TOKEN"
