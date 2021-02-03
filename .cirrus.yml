@@ -1,5 +1,5 @@
 container:
-  image: node:buster
+  image: davidbailey/notion-linux-builder
 
 build_app_task:
   <<: &build_cache
@@ -12,9 +12,6 @@ build_app_task:
       fingerprint_script:
         - cat package-lock.json
         - cat scripts/build.sh
-  install_deps_script:
-    - apt-get update
-    - apt-get install -y p7zip-full
   build_app_script:
     - ./scripts/build.sh
     - ./scripts/build.sh arm64
@@ -28,9 +25,6 @@ package_deb_task:
       - cat scripts/build.sh
       - cat scripts/package-deb.sh
   depends_on: build_app
-  install_deps_script:
-    - apt-get update
-    - apt-get install -y fakeroot
   package_deb_script:
     - ./scripts/package-deb.sh &
     - ./scripts/package-deb.sh arm64 arm64 &
@@ -47,9 +41,6 @@ package_rpm_task:
   depends_on: build_app
   container:
     memory: 6G
-  install_deps_script:
-    - apt-get update
-    - apt-get install -y rpm
   package_rpm_script:
     - ./scripts/package-rpm.sh &
     - ./scripts/package-rpm.sh arm64 aarch64 &
@@ -62,11 +53,6 @@ create_deb_repo_task:
     fingerprint_script: echo $CIRRUS_BUILD_ID
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_deb
-  container:
-    image: ubuntu:latest
-  install_deps_script:
-    - apt-get update
-    - apt-get install -y aptly
   create_deb_repo_script:
     - aptly repo create notion-linux
     - aptly repo add notion-linux out/debs/*
@@ -83,10 +69,6 @@ create_rpm_repo_task:
       - cat scripts/package-rpm.sh
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_rpm
-  container:
-    image: fedora:latest
-  install_deps_script:
-    - dnf install -y createrepo
   create_rpm_repo_script:
     - mkdir -p out/rpm_repo
     - cp out/rpms/* out/rpm_repo
@@ -101,8 +83,6 @@ deploy_to_firebase_task:
   depends_on:
     - create_deb_repo
     - create_rpm_repo
-  install_deps_script:
-    - npm install -g firebase-tools
   firebase_deploy_script:
     - cp -R out/deb_repo public/debs
     - cp -R out/rpm_repo public/rpms
