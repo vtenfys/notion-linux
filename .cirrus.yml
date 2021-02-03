@@ -74,7 +74,9 @@ create_rpm_repo_task:
   rpms_cache: *rpms_cache
   rpm_repo_cache: &rpm_repo_cache
     folder: out/rpm_repo
-    fingerprint_script: echo $CIRRUS_BUILD_ID
+    fingerprint_script:
+      - cat scripts/build.sh
+      - cat scripts/package-rpm.sh
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_rpm
   container:
@@ -84,7 +86,7 @@ create_rpm_repo_task:
   create_rpm_repo_script:
     - mkdir -p out/rpm_repo
     - cp out/rpms/* out/rpm_repo
-    - createrepo out/rpm_repo
+    - createrepo --update out/rpm_repo
 
 deploy_to_netlify_task:
   deb_repo_cache: *deb_repo_cache
