@@ -1,6 +1,5 @@
 container:
   image: node:buster
-  memory: 8G
 
 build_app_task:
   <<: &build_cache
@@ -46,6 +45,8 @@ package_rpm_task:
       - cat scripts/build.sh
       - cat scripts/package-rpm.sh
   depends_on: build_app
+  container:
+    memory: 6G
   install_deps_script:
     - apt-get update
     - apt-get install -y rpm
