@@ -1,10 +1,10 @@
 # Notion for Linux
 
-Build Notion packages for Linux, using resources extracted from Notion's Windows installer.
+Native Notion packages for Linux, built from Notion's Windows installer.
 
 ## Install
 
-Run the following commands in a terminal to install Notion:
+Run the following commands in a terminal to install Notion. Packages are available for Intel/AMD and ARM64.
 
 ### Ubuntu, Debian, Linux Mint
 
