@@ -4,8 +4,6 @@ Native Notion packages for Linux, built from Notion's Windows installer.
 
 ## Install
 
-**Note: I'm currently migrating packages repositories from Netlify to Firebase, so there may be some downtime. No configuration changes are needed if you've already added one of the repositories below.**
-
 Run the following commands in a terminal to install Notion. Packages are available for Intel/AMD and ARM64.
 
 ### Ubuntu, Debian, Linux Mint
