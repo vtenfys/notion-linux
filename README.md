@@ -2,7 +2,7 @@
 
 Build Notion packages for Linux, using resources extracted from Notion's Windows installer.
 
-## Install pre-built packages
+## Install
 
 Run the following commands in a terminal to install Notion:
 
@@ -28,7 +28,9 @@ curl https://notion.davidbailey.codes/notion-linux.repo | sudo tee /etc/zypp/rep
 sudo zypper install notion-desktop
 ```
 
-## Requirements
+## Build
+
+First, install the requirements:
 
 1. Install Node.js, e.g. using [NVM](https://github.com/nvm-sh/nvm):
 
@@ -50,9 +52,7 @@ sudo zypper install notion-desktop
 
    Only Debian-based distributions are officially supported for builds.
 
-## Build
-
-To produce an AMD64 build, run the following:
+Next, to produce an AMD64 build, run the following:
 
 ```sh
 ./scripts/build.sh        # always run
