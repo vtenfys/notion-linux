@@ -4,25 +4,28 @@ Build Notion packages for Linux, using resources extracted from Notion's Windows
 
 ## Install pre-built packages
 
+Run the following commands in a terminal to install Notion:
+
 ### Ubuntu, Debian, Linux Mint
 
-Run the following in a terminal to install Notion:
-
 ```sh
-wget https://notion.davidbailey.codes/notion-linux.list
-sudo mv notion-linux.list /etc/apt/sources.list.d/notion-linux.list
+curl https://notion.davidbailey.codes/notion-linux.list | sudo tee /etc/apt/sources.list.d/notion-linux.list
 sudo apt update
 sudo apt install notion-desktop
 ```
 
 ### Fedora, CentOS
 
-Run the following in a terminal to install Notion:
+```sh
+curl https://notion.davidbailey.codes/notion-linux.repo | sudo tee /etc/yum.repos.d/notion-linux.repo
+sudo dnf install notion-desktop
+```
+
+### openSUSE
 
 ```sh
-wget https://notion.davidbailey.codes/notion-linux.repo
-sudo mv notion-linux.repo /etc/yum.repos.d/notion-linux.repo
-sudo dnf install notion-desktop
+curl https://notion.davidbailey.codes/notion-linux.repo | sudo tee /etc/zypp/repos.d/notion-linux.repo
+sudo zypper install notion-desktop
 ```
 
 ## Requirements
