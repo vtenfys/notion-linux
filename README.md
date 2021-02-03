@@ -11,8 +11,7 @@ Run the following commands in a terminal to install Notion:
 ```sh
 wget https://notion.davidbailey.codes/notion-linux.list
 sudo mv notion-linux.list /etc/apt/sources.list.d/notion-linux.list
-sudo apt update
-sudo apt install notion-desktop
+sudo apt update && sudo apt install notion-desktop
 ```
 
 ### Fedora, CentOS
