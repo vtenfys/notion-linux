@@ -63,14 +63,12 @@ create_deb_repo_task:
     image: ubuntu:latest
   install_deps_script:
     - apt-get update
-    - apt-get install -y apt-utils
+    - apt-get install -y aptly
   create_deb_repo_script:
-    - mkdir -p out/deb_repo
-    - cp out/debs/* out/deb_repo
-    - cd out/deb_repo
-    - apt-ftparchive packages . > Packages
-    - gzip -k Packages
-    - apt-ftparchive release . > Release
+    - aptly repo create notion-linux
+    - aptly repo add notion-linux out/debs/*
+    - aptly publish repo -skip-signing -distribution=stable notion-linux debs
+    - cp -R ~/.aptly/public/debs out/deb_repo
 
 create_rpm_repo_task:
   rpms_cache: *rpms_cache

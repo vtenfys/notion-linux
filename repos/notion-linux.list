@@ -1,1 +1,1 @@
-deb [trusted=yes] https://notion.davidbailey.codes/debs ./
+deb [trusted=yes] https://notion.davidbailey.codes/debs/ stable main
