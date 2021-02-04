@@ -57,6 +57,7 @@ create_deb_repo_task:
   aptly_cache:
     folder: ~/.aptly
     fingerprint_script: echo aptly_cache
+    reupload_on_changes: true
   deb_repo_cache: &deb_repo_cache
     folder: out/deb_repo
     fingerprint_script: echo $CIRRUS_BUILD_ID
@@ -74,6 +75,7 @@ create_rpm_repo_task:
   rpm_repo_cache: &rpm_repo_cache
     folder: out/rpm_repo
     fingerprint_script: echo rpm_repo_cache
+    reupload_on_changes: true
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_rpm
   create_rpm_repo_script:
