@@ -87,6 +87,6 @@ if ! [ -d "$BUILD_DIR/app-linux-$BUILD_ARCH" ]; then
     --platform linux \
     --arch "$BUILD_ARCH" \
     --out "$BUILD_DIR" \
-    --electron-version $ELECTRON_VERSION \
+    --electron-version "$ELECTRON_VERSION" \
     --executable-name notion-desktop
 fi

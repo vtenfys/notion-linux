@@ -18,6 +18,6 @@ if ! [ -f "out/rpms/notion-desktop-$NOTION_VERSION-$PACKAGE_REVISION.$PACKAGE_AR
     --arch "$PACKAGE_ARCH" \
     --options.productName Notion \
     --options.icon "$BUILD_DIR/app-linux-$BUILD_ARCH/resources/app/icon.png" \
-    --options.revision $PACKAGE_REVISION \
+    --options.revision "$PACKAGE_REVISION" \
     --options.license Other
 fi
