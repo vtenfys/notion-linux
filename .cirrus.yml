@@ -1,5 +1,5 @@
 container:
-  image: davidbailey/notion-linux-builder
+  image: davidbailey/notion-linux
 
 build_app_task:
   <<: &build_cache
