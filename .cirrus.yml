@@ -61,7 +61,8 @@ create_deb_repo_task:
   create_deb_repo_script:
     - aptly repo create notion-linux || true
     - aptly repo add notion-linux out/debs/*
-    - aptly publish repo -skip-signing -distribution=stable notion-linux debs
+    - aptly publish repo -skip-signing -distribution=stable notion-linux debs ||
+      aptly publish update -skip-signing -force-overwrite stable debs
     - cp -R ~/.aptly/public/debs out/deb_repo
 
 create_rpm_repo_task:
