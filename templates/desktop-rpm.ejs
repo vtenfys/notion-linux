@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=<%= productName %>
+<% if (description) { print(`Comment=${description}\n`) }
+%>GenericName=<%= genericName %>
+Exec=<%= name %> %U<% if (execArguments && execArguments.length) { %> <%= execArguments.join(' ') %><% } %>
+Icon=<%= name %>
+Type=Application
+StartupNotify=false
+Categories=<%= categories.join(';') %>;
+<% if (mimeType.length) { %>MimeType=<%= mimeType.join(';') %>;<% } %>
