@@ -32,6 +32,8 @@ package_deb_task:
     - ./scripts/package-deb.sh arm64 arm64 &
     - wait
     - "[[ $(ls out/debs | wc -l) == 2 ]]"
+  deb_artifacts:
+    path: "out/debs/*"
 
 package_rpm_task:
   <<: *build_cache
@@ -47,6 +49,8 @@ package_rpm_task:
     - ./scripts/package-rpm.sh arm64 aarch64 &
     - wait
     - "[[ $(ls out/rpms | wc -l) == 2 ]]"
+  rpm_artifacts:
+    path: "out/rpms/*"
 
 create_deb_repo_task:
   debs_cache: *debs_cache
