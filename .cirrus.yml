@@ -11,7 +11,7 @@ build_app_task:
       folder: build
       fingerprint_script:
         - cat package-lock.json
-        - cat scripts/build.sh
+        - cat scripts/{setup-vars,build}.sh
   build_app_script:
     - ./scripts/build.sh
     - ./scripts/build.sh arm64
@@ -22,8 +22,8 @@ package_deb_task:
     folder: out/debs
     fingerprint_script:
       - cat package-lock.json
-      - cat scripts/build.sh
-      - cat scripts/package-deb.sh
+      - cat scripts/{setup-vars,build,package-deb}.sh
+      - cat templates/desktop-deb.ejs
   depends_on: build_app
   container:
     memory: 6G
@@ -32,6 +32,8 @@ package_deb_task:
     - ./scripts/package-deb.sh arm64 arm64 &
     - wait
     - "[[ $(ls out/debs | wc -l) == 2 ]]"
+  deb_artifacts:
+    path: "out/debs/*"
 
 package_rpm_task:
   <<: *build_cache
@@ -39,14 +41,16 @@ package_rpm_task:
     folder: out/rpms
     fingerprint_script:
       - cat package-lock.json
-      - cat scripts/build.sh
-      - cat scripts/package-rpm.sh
+      - cat scripts/{setup-vars,build,package-rpm}.sh
+      - cat templates/desktop-rpm.ejs
   depends_on: build_app
   package_rpm_script:
     - ./scripts/package-rpm.sh &
     - ./scripts/package-rpm.sh arm64 aarch64 &
     - wait
     - "[[ $(ls out/rpms | wc -l) == 2 ]]"
+  rpm_artifacts:
+    path: "out/rpms/*"
 
 create_deb_repo_task:
   debs_cache: *debs_cache

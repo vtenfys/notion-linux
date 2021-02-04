@@ -1,12 +1,8 @@
 #!/bin/bash
 set -e
 
-NOTION_VERSION=2.0.11
-PACKAGE_REVISION=4
-BUILD_ARCH=${1:-x64}
-PACKAGE_ARCH=${2:-amd64}
-BUILD_DIR=build/build-$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
-PATH="node_modules/.bin:$PATH"
+# shellcheck disable=SC1091
+source scripts/setup-vars.sh "${1:-x64}" "${2:-amd64}"
 
 check-command() {
   if ! command -v "$1" >/dev/null 2>&1; then
@@ -30,5 +26,6 @@ if ! [ -f "out/debs/notion-desktop_$NOTION_VERSION-${PACKAGE_REVISION}_$PACKAGE_
     --arch "$PACKAGE_ARCH" \
     --options.productName Notion \
     --options.icon "$BUILD_DIR/app-linux-$BUILD_ARCH/resources/app/icon.png" \
-    --options.revision $PACKAGE_REVISION
+    --options.desktopTemplate templates/desktop-deb.ejs \
+    --options.revision "$PACKAGE_REVISION"
 fi

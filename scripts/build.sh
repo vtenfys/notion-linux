@@ -1,14 +1,8 @@
 #!/bin/bash
 set -e
 
-ELECTRON_VERSION=11.2.1
-NOTION_VERSION=2.0.11
-PACKAGE_REVISION=4
-BUILD_ARCH=${1:-x64}
-
-RESOURCE_DIR=build/resources-$NOTION_VERSION
-BUILD_DIR=build/build-$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
-PATH="node_modules/.bin:$PATH"
+# shellcheck disable=SC1091
+source scripts/setup-vars.sh "${1:-x64}"
 
 check-command() {
   if ! command -v "$1" >/dev/null 2>&1; then
@@ -93,6 +87,6 @@ if ! [ -d "$BUILD_DIR/app-linux-$BUILD_ARCH" ]; then
     --platform linux \
     --arch "$BUILD_ARCH" \
     --out "$BUILD_DIR" \
-    --electron-version $ELECTRON_VERSION \
+    --electron-version "$ELECTRON_VERSION" \
     --executable-name notion-desktop
 fi
