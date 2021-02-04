@@ -5,7 +5,7 @@
     "redirects": [
       {
         "source": "/",
-        "destination": "https://github.com/davidbailey00/notion-linux-builder",
+        "destination": "https://github.com/davidbailey00/notion-linux",
         "type": 301
       }
     ]

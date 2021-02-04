@@ -1,5 +1,5 @@
 {
-  "name": "notion-linux-builder",
+  "name": "notion-linux",
   "version": "1.0.0",
   "description": "Build Notion packages for Ubuntu/Debian, using resources extracted from Notion's Windows or macOS packages.",
   "dependencies": {
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davidbailey00/notion-linux-builder.git"
+    "url": "git+https://github.com/davidbailey00/notion-linux.git"
   },
   "bugs": {
-    "url": "https://github.com/davidbailey00/notion-linux-builder/issues"
+    "url": "https://github.com/davidbailey00/notion-linux/issues"
   },
-  "homepage": "https://github.com/davidbailey00/notion-linux-builder#readme"
+  "homepage": "https://github.com/davidbailey00/notion-linux#readme"
 }
