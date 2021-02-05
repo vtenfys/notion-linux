@@ -12,7 +12,7 @@ if ! [ -d "$BUILD_DIR_ENHANCED" ]; then
   rm -rf "$BUILD_DIR_ENHANCED/notion-desktop-linux-$BUILD_ARCH"
 fi
 
-if ! [ -d "$BUILD_DIR_ENHANCED/.enhanced" ]; then
+if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   # Make a backup of existing notion-desktop if one doesn't exist already
   # If a backup exists, remove any existing non-backup directory
   if [ -d /usr/lib/notion-desktop.bak ]; then
