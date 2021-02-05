@@ -51,9 +51,7 @@ fi
 
 # Install NPM dependencies and apply patches
 if ! [ -f "$BUILD_DIR/app-unpacked/package-lock.json" ]; then
-  # Replace package name to fix some issues:
-  # - conflicting package in Ubuntu repos called "notion"
-  # - icon not showing up properly when only the DEB package is renamed
+  # Replace package name due to conflicting `notion` package
   sed -i 's/"Notion"/"notion-desktop"/' "$BUILD_DIR/app-unpacked/package.json"
 
   # Patch to treat the Linux app like the Windows version
@@ -82,11 +80,10 @@ if ! [ -f "$BUILD_DIR/app-unpacked/icon.png" ]; then
 fi
 
 # Create Electron package
-if ! [ -d "$BUILD_DIR/app-linux-$BUILD_ARCH" ]; then
-  electron-packager "$BUILD_DIR/app-unpacked" app \
+if ! [ -d "$BUILD_DIR/notion-desktop-linux-$BUILD_ARCH" ]; then
+  electron-packager "$BUILD_DIR/app-unpacked" \
     --platform linux \
     --arch "$BUILD_ARCH" \
     --out "$BUILD_DIR" \
-    --electron-version "$ELECTRON_VERSION" \
-    --executable-name notion-desktop
+    --electron-version "$ELECTRON_VERSION"
 fi

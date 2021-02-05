@@ -13,11 +13,11 @@ fi
 # Create Red Hat package
 if ! [ -f "out/rpms/notion-desktop-$NOTION_VERSION-$PACKAGE_REVISION.$PACKAGE_ARCH.rpm" ]; then
   electron-installer-redhat \
-    --src "$BUILD_DIR/app-linux-$BUILD_ARCH" \
+    --src "$BUILD_DIR/notion-desktop-linux-$BUILD_ARCH" \
     --dest out/rpms \
     --arch "$PACKAGE_ARCH" \
     --options.productName Notion \
-    --options.icon "$BUILD_DIR/app-linux-$BUILD_ARCH/resources/app/icon.png" \
+    --options.icon "$BUILD_DIR/notion-desktop-linux-$BUILD_ARCH/resources/app/icon.png" \
     --options.desktopTemplate templates/desktop-rpm.ejs \
     --options.revision "$PACKAGE_REVISION" \
     --options.license Other
