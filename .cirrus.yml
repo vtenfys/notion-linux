@@ -11,15 +11,10 @@ build_app_task:
       folder: build
       fingerprint_script:
         - cat package-lock.json
-        - cat scripts/{setup-vars,build}.sh
-      reupload_on_changes: true
+        - cat scripts/{setup-vars,build,enhance}.sh
   build_app_script:
     - ./scripts/build.sh x64
     - ./scripts/build.sh arm64
-
-enhance_app_task:
-  <<: *build_cache
-  depends_on: build_app
   enhance_app_script:
     - ./scripts/enhance.sh x64
     - ./scripts/enhance.sh arm64
@@ -32,9 +27,7 @@ package_deb_task:
       - cat package-lock.json
       - cat scripts/{setup-vars,build,package-deb}.sh
       - cat templates/desktop-deb.ejs
-  depends_on:
-    - build_app
-    - enhance_app
+  depends_on: build_app
   container:
     cpu: 4
     memory: 12G
@@ -56,9 +49,7 @@ package_rpm_task:
       - cat package-lock.json
       - cat scripts/{setup-vars,build,package-rpm}.sh
       - cat templates/desktop-rpm.ejs
-  depends_on:
-    - build_app
-    - enhance_app
+  depends_on: build_app
   container:
     cpu: 4
     memory: 8G
