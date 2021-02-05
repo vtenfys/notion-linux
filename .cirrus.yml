@@ -52,7 +52,6 @@ package_rpm_task:
   depends_on: build_app
   container:
     cpu: 4
-    memory: 8G
   package_rpm_script:
     - ./scripts/package-rpm.sh notion-desktop x64 x86_64 &
     - ./scripts/package-rpm.sh notion-desktop arm64 aarch64 &
