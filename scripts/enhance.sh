@@ -41,6 +41,9 @@ if ! [ -d "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   # Replace package name with `notion-enhanced`
   sed -i 's/"notion-desktop"/"notion-enhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
 
+  # Modify Notion Enhancer-patched scripts to point to the correct directory (notion-enhanced instead of notion-desktop)
+  find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' -exec sed -i 's|/usr/lib/notion-desktop|/usr/lib/notion-enhanced|g' {} +
+
   # Mark as complete
   touch "$BUILD_DIR_ENHANCED/.enhanced"
 fi
