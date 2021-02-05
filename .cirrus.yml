@@ -25,7 +25,7 @@ package_deb_task:
     folder: out/debs
     fingerprint_script:
       - cat package-lock.json
-      - cat scripts/{setup-vars,build,package-deb}.sh
+      - cat scripts/{setup-vars,build,enhance,package-deb}.sh
       - cat templates/desktop-deb.ejs
   depends_on: build_app
   container:
@@ -47,7 +47,7 @@ package_rpm_task:
     folder: out/rpms
     fingerprint_script:
       - cat package-lock.json
-      - cat scripts/{setup-vars,build,package-rpm}.sh
+      - cat scripts/{setup-vars,build,enhance,package-rpm}.sh
       - cat templates/desktop-rpm.ejs
   depends_on: build_app
   container:
