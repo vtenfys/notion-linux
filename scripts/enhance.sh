@@ -26,13 +26,12 @@ if ! [ -d "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   sudo ln -s "$PWD/$BUILD_DIR_ENHANCED/app-unpacked" /usr/lib/notion-desktop/resources/app
 
   # Install Notion Enhancer without automatically patching
+  cd "$BUILD_DIR_ENHANCED/app-unpacked"
   npm install --ignore-scripts notion-enhancer
 
   # Explicitly apply Notion Enhancer
   notion-enhancer apply
-
-  # Remove Notion Enhancer without automatically un-patching
-  npm uninstall --ignore-scripts notion-enhancer
+  cd ../../..
 
   # Restore original /usr/lib/notion-desktop
   sudo rm -rf /usr/lib/notion-desktop
@@ -41,8 +40,8 @@ if ! [ -d "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   # Replace package name with `notion-enhanced`
   sed -i 's/"notion-desktop"/"notion-enhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
 
-  # Modify Notion Enhancer-patched scripts to point to the correct directory (notion-enhanced instead of notion-desktop)
-  find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' -exec sed -i 's|/usr/lib/notion-desktop|/usr/lib/notion-enhanced|g' {} +
+  # Modify Notion Enhancer-patched scripts to point to the correct directory
+  find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' -exec sed -i "s|$PWD/$BUILD_DIR_ENHANCED/app-unpacked/node_modules/notion-enhancer|notion-enhancer|g" {} +
 
   # Mark as complete
   touch "$BUILD_DIR_ENHANCED/.enhanced"
