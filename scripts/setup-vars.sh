@@ -8,4 +8,5 @@ export PACKAGE_ARCH=$2
 
 export RESOURCE_DIR=build/resources-$NOTION_VERSION
 export BUILD_DIR=build/build-$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
+export BUILD_DIR_ENHANCED=build/build-enhanced-$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
 export PATH="node_modules/.bin:$PATH"

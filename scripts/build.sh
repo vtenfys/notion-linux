@@ -2,7 +2,7 @@
 set -e
 
 # shellcheck disable=SC1091
-source scripts/setup-vars.sh "${1:-x64}"
+source scripts/setup-vars.sh "$1"
 
 check-command() {
   if ! command -v "$1" >/dev/null 2>&1; then
