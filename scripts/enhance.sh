@@ -17,8 +17,8 @@ if ! [ -d "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   # If a backup exists, remove any existing non-backup directory
   if [ -d /usr/lib/notion-desktop.bak ]; then
     sudo rm -rf /usr/lib/notion-desktop
-  else
-    sudo mv /usr/lib/notion-desktop{,.bak} || true
+  elif [ -d /usr/lib/notion-desktop ]; then
+    sudo mv /usr/lib/notion-desktop{,.bak}
   fi
 
   # Hack: Link the app package into /usr/lib where Notion Enhancer expects it
@@ -35,7 +35,9 @@ if ! [ -d "$BUILD_DIR_ENHANCED/.enhanced" ]; then
 
   # Restore original /usr/lib/notion-desktop
   sudo rm -rf /usr/lib/notion-desktop
-  sudo mv /usr/lib/notion-desktop{.bak,} || true
+  if [ -d /usr/lib/notion-desktop.bak ]; then
+    sudo mv /usr/lib/notion-desktop{.bak,}
+  fi
 
   # Replace package name with `notion-enhanced`
   sed -i 's/"notion-desktop"/"notion-enhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
