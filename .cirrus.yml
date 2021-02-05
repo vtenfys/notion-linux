@@ -30,7 +30,7 @@ package_deb_task:
   depends_on: build_app
   container:
     cpu: 4
-    memory: 12G
+    memory: 10G
   package_deb_script:
     - ./scripts/package-deb.sh notion-desktop x64 amd64 &
     - ./scripts/package-deb.sh notion-desktop arm64 arm64 &
