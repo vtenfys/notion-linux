@@ -64,6 +64,8 @@ sudo zypper install notion-desktop
 
 ### Build `notion-desktop`
 
+`notion-desktop` is the vanilla Notion package.
+
 To produce an AMD64 build, run the following:
 
 ```sh
@@ -83,6 +85,8 @@ To produce an ARM64 build, run the following:
 Once complete, you should have DEB and/or RPM packages in the `out` directory.
 
 ### Build `notion-enhanced`
+
+`notion-enhanced` is the Notion package with [Notion Enhancer](https://github.com/notion-enhancer/notion-enhancer) mods applied.
 
 To produce an AMD64 build, run the following:
 
