@@ -5,8 +5,10 @@ set -e
 source scripts/setup-vars.sh "$2" "$3"
 
 APP_NAME=$1
+PRODUCT_NAME=Notion
 if [[ "$APP_NAME" == notion-enhanced ]]; then
   BUILD_DIR=$BUILD_DIR_ENHANCED
+  PRODUCT_NAME='Notion Enhanced'
 fi
 
 check-command() {
@@ -29,7 +31,7 @@ if ! [ -f "out/debs/${APP_NAME}_$NOTION_VERSION-${PACKAGE_REVISION}_$PACKAGE_ARC
     --src "$BUILD_DIR/$APP_NAME-linux-$BUILD_ARCH" \
     --dest out/debs \
     --arch "$PACKAGE_ARCH" \
-    --options.productName Notion \
+    --options.productName "$PRODUCT_NAME" \
     --options.icon "$BUILD_DIR/$APP_NAME-linux-$BUILD_ARCH/resources/app/icon.png" \
     --options.desktopTemplate templates/desktop-deb.ejs \
     --options.revision "$PACKAGE_REVISION"
