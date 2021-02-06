@@ -65,17 +65,17 @@ First, install the requirements:
 Next, to produce an AMD64 build, run the following:
 
 ```sh
-./scripts/build.sh x64                              # always run
-./scripts/package-deb.sh notion-desktop x64 amd64   # run to produce a DEB
-./scripts/package-rpm.sh notion-desktop x64 x86_64  # run to produce an RPM
+./scripts/build.sh        # always run
+./scripts/package-deb.sh  # run to produce a DEB
+./scripts/package-rpm.sh  # run to produce an RPM
 ```
 
 To produce an ARM64 build, run the following:
 
 ```sh
-./scripts/build.sh arm64                               # always run
-./scripts/package-deb.sh notion-desktop arm64 arm64    # run to produce a DEB
-./scripts/package-rpm.sh notion-desktop arm64 aarch64  # run to produce an RPM
+./scripts/build.sh -b arm64        # always run
+./scripts/package-deb.sh -b arm64  # run to produce a DEB
+./scripts/package-rpm.sh -b arm64  # run to produce an RPM
 ```
 
 Once complete, you should have a DEB and/or RPM package in the `out` directory.

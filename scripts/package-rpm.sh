@@ -2,10 +2,31 @@
 set -e
 
 # shellcheck disable=SC1091
-source scripts/setup-vars.sh "$2" "$3"
+source ./scripts/setup-vars.sh x86_64
 
-APP_NAME=$1
-PRODUCT_NAME=Notion
+usage() {
+  echo "usage: $0 [ -n PRODUCT_NAME -b BUILD_ARCH ]"
+  exit 1
+}
+
+while getopts "n:b:" options; do
+  case $options in
+    n)
+      PRODUCT_NAME=$OPTARG
+      ;;
+    b)
+      BUILD_ARCH=$OPTARG
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+if [[ "$BUILD_ARCH" == arm64 ]]; then
+  PACKAGE_ARCH=aarch64
+fi
+
 if [[ "$APP_NAME" == notion-enhanced ]]; then
   BUILD_DIR=$BUILD_DIR_ENHANCED
   PRODUCT_NAME='Notion Enhanced'

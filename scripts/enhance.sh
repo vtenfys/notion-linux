@@ -2,7 +2,23 @@
 set -e
 
 # shellcheck disable=SC1091
-source scripts/setup-vars.sh "$1"
+source ./scripts/setup-vars.sh
+
+usage() {
+  echo "usage: $0 [ -b BUILD_ARCH ]"
+  exit 1
+}
+
+while getopts "b:" options; do
+  case $options in
+    b)
+      BUILD_ARCH=$OPTARG
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
 
 if ! [ -d "$BUILD_DIR_ENHANCED" ]; then
   # Make a copy of the build directory to enhance
