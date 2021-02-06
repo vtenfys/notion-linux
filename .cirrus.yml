@@ -11,10 +11,13 @@ build_app_task:
       folder: build
       fingerprint_script:
         - cat package-lock.json
-        - cat scripts/{setup-vars,build}.sh
+        - cat scripts/{_variables-*,build,enhance}.sh
   build_app_script:
-    - ./scripts/build.sh
-    - ./scripts/build.sh arm64
+    - scripts/build.sh
+    - scripts/build.sh -b arm64
+  enhance_app_script:
+    - scripts/enhance.sh
+    - scripts/enhance.sh -b arm64
 
 package_deb_task:
   <<: *build_cache
@@ -22,16 +25,19 @@ package_deb_task:
     folder: out/debs
     fingerprint_script:
       - cat package-lock.json
-      - cat scripts/{setup-vars,build,package-deb}.sh
+      - cat scripts/{_variables-*,build,enhance,package-deb}.sh
       - cat templates/desktop-deb.ejs
   depends_on: build_app
   container:
-    memory: 6G
+    cpu: 4
+    memory: 10G
   package_deb_script:
-    - ./scripts/package-deb.sh &
-    - ./scripts/package-deb.sh arm64 arm64 &
+    - scripts/package-deb.sh &
+    - scripts/package-deb.sh -b arm64 &
+    - scripts/package-deb.sh -n notion-enhanced &
+    - scripts/package-deb.sh -n notion-enhanced -b arm64 &
     - wait
-    - "[[ $(ls out/debs | wc -l) == 2 ]]"
+    - "[[ $(ls out/debs | wc -l) == 4 ]]"
   deb_artifacts:
     path: "out/debs/*"
 
@@ -41,14 +47,18 @@ package_rpm_task:
     folder: out/rpms
     fingerprint_script:
       - cat package-lock.json
-      - cat scripts/{setup-vars,build,package-rpm}.sh
+      - cat scripts/{_variables-*,build,enhance,package-rpm}.sh
       - cat templates/desktop-rpm.ejs
   depends_on: build_app
+  container:
+    cpu: 4
   package_rpm_script:
-    - ./scripts/package-rpm.sh &
-    - ./scripts/package-rpm.sh arm64 aarch64 &
+    - scripts/package-rpm.sh &
+    - scripts/package-rpm.sh -b arm64 &
+    - scripts/package-rpm.sh -n notion-enhanced &
+    - scripts/package-rpm.sh -n notion-enhanced -b arm64 &
     - wait
-    - "[[ $(ls out/rpms | wc -l) == 2 ]]"
+    - "[[ $(ls out/rpms | wc -l) == 4 ]]"
   rpm_artifacts:
     path: "out/rpms/*"
 
