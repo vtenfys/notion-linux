@@ -40,7 +40,7 @@ sudo zypper install notion-desktop
 
 ## Build
 
-First, install the requirements:
+### Install requirements
 
 1. Install Node.js, e.g. using [NVM](https://github.com/nvm-sh/nvm):
 
@@ -62,7 +62,9 @@ First, install the requirements:
 
    Only Debian-based distributions are officially supported for builds.
 
-Next, to produce an AMD64 build, run the following:
+### Build `notion-desktop`
+
+To produce an AMD64 build, run the following:
 
 ```sh
 ./scripts/build.sh        # always run
@@ -78,4 +80,26 @@ To produce an ARM64 build, run the following:
 ./scripts/package-rpm.sh -b arm64  # run to produce an RPM
 ```
 
-Once complete, you should have a DEB and/or RPM package in the `out` directory.
+Once complete, you should have DEB and/or RPM packages in the `out` directory.
+
+### Build `notion-enhanced`
+
+To produce an AMD64 build, run the following:
+
+```sh
+./scripts/build.sh                           # always run
+./scripts/enhance.sh                         # always run
+./scripts/package-deb.sh -n notion-enhanced  # run to produce a DEB
+./scripts/package-rpm.sh -n notion-enhanced  # run to produce an RPM
+```
+
+To produce an ARM64 build, run the following:
+
+```sh
+./scripts/build.sh -b arm64                           # always run
+./scripts/enhance.sh -b arm64                         # always run
+./scripts/package-deb.sh -n notion-enhanced -b arm64  # run to produce a DEB
+./scripts/package-rpm.sh -n notion-enhanced -b arm64  # run to produce an RPM
+```
+
+Once complete, you should have DEB and/or RPM packages in the `out` directory.
