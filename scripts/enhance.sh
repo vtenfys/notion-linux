@@ -62,8 +62,9 @@ if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   sed -i 's/"notion-desktop"/"notion-enhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
 
   # Modify Notion Enhancer-patched scripts to point to the correct directories
-  find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' -exec sed -i "s|/usr/lib/notion-desktop|/usr/lib/notion-enhanced|g" {} +
-  find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' -exec sed -i "s|$PWD/$BUILD_DIR_ENHANCED/app-unpacked/node_modules/notion-enhancer|notion-enhancer|g" {} +
+  find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' \
+    -exec sed -i "s|/usr/lib/notion-desktop|/usr/lib/notion-enhanced|g" {} \; \
+    -exec sed -i "s|$PWD/$BUILD_DIR_ENHANCED/app-unpacked/node_modules/notion-enhancer|notion-enhancer|g" {} \;
 
   # Mark as complete
   touch "$BUILD_DIR_ENHANCED/.enhanced"
