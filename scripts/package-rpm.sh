@@ -2,7 +2,7 @@
 set -e
 
 # shellcheck disable=SC1091
-source ./scripts/_variables-1.sh x86_64
+source scripts/_variables-1.sh x86_64
 
 usage() {
   echo "usage: $0 [ -n APP_NAME -b BUILD_ARCH ]"
@@ -24,7 +24,7 @@ while getopts "n:b:" options; do
 done
 
 # shellcheck disable=SC1091
-source ./scripts/_variables-2.sh
+source scripts/_variables-2.sh
 
 if [[ "$BUILD_ARCH" == arm64 ]]; then
   PACKAGE_ARCH=aarch64
