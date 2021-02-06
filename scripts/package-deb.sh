@@ -5,14 +5,14 @@ set -e
 source ./scripts/setup-vars.sh amd64
 
 usage() {
-  echo "usage: $0 [ -n PRODUCT_NAME -b BUILD_ARCH ]"
+  echo "usage: $0 [ -n APP_NAME -b BUILD_ARCH ]"
   exit 1
 }
 
 while getopts "n:b:" options; do
   case $options in
     n)
-      PRODUCT_NAME=$OPTARG
+      APP_NAME=$OPTARG
       ;;
     b)
       BUILD_ARCH=$OPTARG
