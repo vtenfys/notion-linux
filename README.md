@@ -6,6 +6,8 @@ Native Notion packages for Linux, built from Notion's Windows installer.
 
 Run the following commands in a terminal to install Notion. Packages are available for Intel/AMD and ARM64.
 
+To install Notion with [Notion Enhancer](https://github.com/notion-enhancer/notion-enhancer) mods applied, replace `notion-desktop` with `notion-enhanced` in the commands below.
+
 ### Ubuntu, Debian, Linux Mint
 
 ```sh
