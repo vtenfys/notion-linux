@@ -2,7 +2,7 @@
 set -e
 
 # shellcheck disable=SC1091
-source ./scripts/setup-vars.sh amd64
+source ./scripts/_variables-1.sh amd64
 
 usage() {
   echo "usage: $0 [ -n APP_NAME -b BUILD_ARCH ]"
@@ -23,13 +23,11 @@ while getopts "n:b:" options; do
   esac
 done
 
+# shellcheck disable=SC1091
+source ./scripts/_variables-2.sh
+
 if [[ "$BUILD_ARCH" == arm64 ]]; then
   PACKAGE_ARCH=arm64
-fi
-
-if [[ "$APP_NAME" == notion-enhanced ]]; then
-  BUILD_DIR=$BUILD_DIR_ENHANCED
-  PRODUCT_NAME='Notion Enhanced'
 fi
 
 check-command() {
