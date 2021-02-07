@@ -76,6 +76,9 @@ create_deb_repo_task:
   create_deb_repo_script:
     - aptly repo create notion-linux || true
     - aptly repo add notion-linux out/debs/*
+    - scripts/purge_old_versions.py notion-linux notion-desktop 2
+    - scripts/purge_old_versions.py notion-linux notion-enhanced 2
+    - aptly db cleanup
     - aptly publish repo -skip-signing -distribution=stable notion-linux debs ||
       aptly publish update -skip-signing -force-overwrite stable debs
     - cp -R ~/.aptly/public/debs out/deb_repo
