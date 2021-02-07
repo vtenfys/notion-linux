@@ -21,7 +21,7 @@ def sort_cmp(name1, name2):
     return version_compare(version_and_build_1, version_and_build_2)
 
 output.sort(key=cmp_to_key(sort_cmp))
-should_delete = output[:-retain_how_many]
+should_delete = output[:-(retain_how_many+1)]
 
 if should_delete:
     print(check_output(["aptly", "repo", "remove", repo] + should_delete, encoding="utf-8"))
