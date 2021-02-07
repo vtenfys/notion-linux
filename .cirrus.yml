@@ -91,7 +91,7 @@ create_rpm_repo_task:
   create_rpm_repo_script:
     - mkdir -p out/rpm_repo
     - cp out/rpms/* out/rpm_repo
-    - createrepo --update out/rpm_repo
+    - createrepo --update --deltas --oldpackagedirs out/rpm_repo --max-delta-rpm-size 536870912 out/rpm_repo
 
 deploy_to_firebase_task:
   deb_repo_cache: *deb_repo_cache
