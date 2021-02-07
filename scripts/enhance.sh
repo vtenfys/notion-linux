@@ -45,7 +45,7 @@ if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   sudo ln -s "$PWD/$BUILD_DIR_ENHANCED/app-unpacked" /usr/lib/notion-desktop/resources/app
 
   # Install Notion Enhancer and automatically apply patches
-  npm install --prefix="$BUILD_DIR_ENHANCED/app-unpacked" notion-enhancer
+  npm install --prefix="$BUILD_DIR_ENHANCED/app-unpacked" "notion-enhancer@$ENHANCER_VERSION"
 
   # Restore original /usr/lib/notion-desktop
   sudo rm -rf /usr/lib/notion-desktop
