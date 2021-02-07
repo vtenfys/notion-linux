@@ -29,6 +29,9 @@ if ! [ -d "$BUILD_DIR_ENHANCED" ]; then
 
   # Remove the non-enhanced app package
   rm -rf "$BUILD_DIR_ENHANCED/notion-desktop-linux-$BUILD_ARCH"
+
+  # Replace package name with `notion-enhanced`
+  sed -i 's/"notion-desktop"/"notion-enhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
 fi
 
 if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
@@ -52,9 +55,6 @@ if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
   if [ -d /usr/lib/notion-desktop.bak ]; then
     sudo mv /usr/lib/notion-desktop{.bak,}
   fi
-
-  # Replace package name with `notion-enhanced`
-  sed -i 's/"notion-desktop"/"notion-enhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
 
   # Modify Notion Enhancer-patched scripts to point to the correct directories
   find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' \
