@@ -24,6 +24,6 @@ output.sort(key=cmp_to_key(sort_cmp))
 should_delete = output[:-retain_how_many]
 
 if should_delete:
-    print(check_output(["aptly", "repo", "remove", repo] + should_delete))
+    print(check_output(["aptly", "repo", "remove", repo] + should_delete, encoding="utf-8"))
 else:
     print("nothing to delete")
