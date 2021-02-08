@@ -87,13 +87,13 @@ create_rpm_repo_task:
   rpms_cache: *rpms_cache
   rpm_repo_cache: &rpm_repo_cache
     folder: out/rpm_repo
-    fingerprint_script: echo rpm_repo_cache
+    fingerprint_script: echo rpm_repo_cache_v2
     reupload_on_changes: true
   only_if: $CIRRUS_BRANCH == 'main'
   depends_on: package_rpm
   create_rpm_repo_script:
     - mkdir -p out/rpm_repo
-    - cp out/rpms/* out/rpm_repo
+    - cp -n out/rpms/* out/rpm_repo
     - rm -f $(repomanage --old --keep=2 out/rpm_repo)
     - createrepo --update --deltas --oldpackagedirs out/rpm_repo --max-delta-rpm-size 536870912 out/rpm_repo
 
