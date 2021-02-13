@@ -110,3 +110,17 @@ deploy_to_firebase_task:
     - cp -R out/deb_repo public/debs
     - cp -R out/rpm_repo public/rpms
     - firebase deploy --token "$FIREBASE_TOKEN"
+
+deploy_to_fly_task:
+  deb_repo_cache: *deb_repo_cache
+  rpm_repo_cache: *rpm_repo_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  environment:
+    FLY_API_TOKEN: ENCRYPTED[280bfac3101749ee216dec7dc5b4d2148325d245af41d96322eb36ab7dcce2b959bbecd680f5c6e613ffe57ea5d1e9df]
+  depends_on:
+    - create_deb_repo
+    - create_rpm_repo
+  firebase_deploy_script:
+    - cp -R out/deb_repo public/debs
+    - cp -R out/rpm_repo public/rpms
+    - fly deploy public
