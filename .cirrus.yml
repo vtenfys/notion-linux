@@ -123,4 +123,5 @@ deploy_to_fly_task:
   fly_deploy_script:
     - cp -R out/deb_repo public/debs
     - cp -R out/rpm_repo public/rpms
-    - flyctl deploy public
+    - ls -lhR public
+    - echo flyctl deploy public
