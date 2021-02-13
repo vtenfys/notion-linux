@@ -62,6 +62,17 @@ package_rpm_task:
   rpm_artifacts:
     path: "out/rpms/*"
 
+deploy_to_gemfury_task:
+  debs_cache: *debs_cache
+  rpms_cache: *rpms_cache
+  only_if: $CIRRUS_BRANCH == 'main'
+  environment:
+    GEMFURY_TOKEN: ENCRYPTED[a7b2cc08cab17b9d9043816cc0e8bdfc3e0b0b59f21c5e920d9f86d0961d61a05959590b90d998134d94828cd6a5a860]
+  depends_on:
+    - package_deb
+    - package_rpm
+  deploy_script: scripts/deploy.sh
+
 create_deb_repo_task:
   debs_cache: *debs_cache
   aptly_cache:
