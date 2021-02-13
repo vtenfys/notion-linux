@@ -1,2 +1,3 @@
+/ https://github.com/davidbailey00/notion-linux
 /debs/* https://davidbailey00.fury.land/apt/:splat
 /rpms/* https://davidbailey00.fury.land/yum/:splat
