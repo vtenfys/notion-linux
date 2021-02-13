@@ -9,3 +9,4 @@ RUN apt-get install -y python3-apt
 RUN apt-get install -y yum-utils
 RUN apt-get install -y createrepo
 RUN npm install -g firebase-tools
+RUN curl -L https://fly.io/install.sh | sh
