@@ -1,4 +1,4 @@
-**13 February 2021**: [Action is required for Debian, Ubuntu and Linux Mint users](https://github.com/davidbailey00/notion-linux/releases/tag/gemfury)
+**13 February 2021**: [Action is required for existing Debian, Ubuntu and Linux Mint users](https://github.com/davidbailey00/notion-linux/releases/tag/gemfury)
 
 # Notion for Linux
 
