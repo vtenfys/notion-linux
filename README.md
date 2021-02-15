@@ -18,14 +18,6 @@ sudo mv notion-linux.list /etc/apt/sources.list.d/notion-linux.list
 sudo apt update && sudo apt install notion-desktop
 ```
 
-You may see the following line when running `sudo apt update` on an Intel/AMD system:
-
-```
-N: Skipping acquire of configured file 'main/binary-i386/Packages' as repository 'https://notion.davidbailey.codes/debs stable InRelease' doesn't support architecture 'i386'
-```
-
-This is an informational message only and is safe to ignore. See [#26](https://github.com/davidbailey00/notion-linux/issues/26) and [#29](https://github.com/davidbailey00/notion-linux/issues/29).
-
 ### Fedora, CentOS
 
 ```sh
