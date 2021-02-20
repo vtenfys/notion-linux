@@ -6,7 +6,7 @@ build_app_task:
     node_modules_cache:
       folder: node_modules
       fingerprint_script: cat package-lock.json
-      populate_script: npm install
+      populate_script: npm ci
     build_folder_cache:
       folder: build
       fingerprint_script:
