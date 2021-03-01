@@ -89,7 +89,7 @@ if ! [ -f "$BUILD_DIR/app-unpacked/package-lock.json" ]; then
   export npm_config_runtime=electron
   export npm_config_build_from_source=true
 
-  HOME=~/.electron-gyp npm install --prefix "$BUILD_DIR/app-unpacked" open
+  HOME=~/.electron-gyp npm install --prefix "$BUILD_DIR/app-unpacked"
 fi
 
 # Convert icon.ico to PNG
