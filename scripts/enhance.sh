@@ -45,10 +45,15 @@ if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
 
   # Hack: Link the app package into /usr/lib where Notion Enhancer expects it
   sudo mkdir -p /usr/lib/notion-desktop/resources
+  sudo chown -R "$USER" /usr/lib/notion-desktop
   sudo ln -s "$PWD/$BUILD_DIR_ENHANCED/app-unpacked" /usr/lib/notion-desktop/resources/app
 
   # Install Notion Enhancer and automatically apply patches
   npm install --prefix="$BUILD_DIR_ENHANCED/app-unpacked" "notion-enhancer@$ENHANCER_VERSION"
+
+  # Patch Notion Enhancer to support Notion 2.0.13+
+  # See https://www.notion.so/hack-notion-enhancer-v0-10-2-to-work-with-notion-s-v2-0-13-app-a4ab1267e67b4126b6448641ca4a0041
+  cp patches/{client.js,createWindow.js} "$BUILD_DIR_ENHANCED/app-unpacked/node_modules/notion-enhancer/mods/core"
 
   # Restore original /usr/lib/notion-desktop
   sudo rm -rf /usr/lib/notion-desktop
