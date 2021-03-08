@@ -53,7 +53,7 @@ sudo zypper install notion-desktop
 3. Install other packages required for building the app, e.g. using `apt`:
 
    ```sh
-   sudo apt install p7zip-full imagemagick make g++ fakeroot rpm
+   sudo apt install p7zip-full imagemagick python make g++ fakeroot rpm
    ```
 
    Only Debian-based distributions are officially supported for builds.
