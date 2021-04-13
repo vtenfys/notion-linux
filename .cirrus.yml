@@ -34,8 +34,8 @@ package_deb_task:
   package_deb_script:
     - scripts/package-deb.sh &
     - scripts/package-deb.sh -b arm64 &
-    - scripts/package-deb.sh -n notion-enhanced &
-    - scripts/package-deb.sh -n notion-enhanced -b arm64 &
+    - scripts/package-deb.sh -n notionenhanced &
+    - scripts/package-deb.sh -n notionenhanced -b arm64 &
     - wait
     - "[[ $(ls out/debs | wc -l) == 4 ]]"
   deb_artifacts:
@@ -55,8 +55,8 @@ package_rpm_task:
   package_rpm_script:
     - scripts/package-rpm.sh &
     - scripts/package-rpm.sh -b arm64 &
-    - scripts/package-rpm.sh -n notion-enhanced &
-    - scripts/package-rpm.sh -n notion-enhanced -b arm64 &
+    - scripts/package-rpm.sh -n notionenhanced &
+    - scripts/package-rpm.sh -n notionenhanced -b arm64 &
     - wait
     - "[[ $(ls out/rpms | wc -l) == 4 ]]"
   rpm_artifacts:

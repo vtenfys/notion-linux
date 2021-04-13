@@ -6,7 +6,7 @@ BUILD_DIR=build/build-$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
 BUILD_DIR_ENHANCED=build/build-enhanced-$NOTION_VERSION-$PACKAGE_REVISION-$BUILD_ARCH
 PATH="node_modules/.bin:$PATH"
 
-if [[ "$APP_NAME" == notion-enhanced ]]; then
+if [[ "$APP_NAME" == notionenhanced ]]; then
   BUILD_DIR=$BUILD_DIR_ENHANCED
   PRODUCT_NAME='Notion Enhanced'
 fi
