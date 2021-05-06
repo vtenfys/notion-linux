@@ -29,9 +29,8 @@ sudo dnf install notion-desktop
 ### openSUSE
 
 ```sh
-wget https://notion.davidbailey.codes/notion-linux.repo
-sudo mv notion-linux.repo /etc/zypp/repos.d/notion-linux.repo
-sudo zypper install notion-desktop
+sudo zypper ar -r https://notion.davidbailey.codes/notion-linux.repo
+sudo zypper --gpg-auto-import-keys install notion-desktop
 ```
 
 ## Build
