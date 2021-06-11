@@ -1,4 +1,4 @@
-**11 June 20221: End of support**
+**11 June 2021: End of support**
 
 I no longer use either Notion or Linux. Furthermore, recent updates to Notion have been difficult for me to support all the existing variants (e.g. arm64, enhanced), due to new native modules and incompatibilities with Notion Enhancer. If you would like to maintain this project, please contact me by opening an issue, or through my website.
 
