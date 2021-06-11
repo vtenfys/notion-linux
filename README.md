@@ -1,6 +1,6 @@
 **11 June 2021: End of support**
 
-I no longer use either Notion or Linux. Furthermore, recent updates to Notion have been difficult for me to support all the existing variants (e.g. arm64, enhanced), due to new native modules and incompatibilities with Notion Enhancer. If you would like to maintain this project, please contact me by opening an issue, or through my website.
+I no longer use either Notion or Linux. Furthermore, recent updates to Notion have made it difficult for me to support all the existing variants (e.g. arm64, enhanced), due to new native modules and incompatibilities with Notion Enhancer. If you would like to maintain this project, please contact me by opening an issue, or through my website.
 
 For Arch Linux users, I recommend using [notion-app](https://aur.archlinux.org/packages/notion-app/). For other Linux users, I recommend using the Notion web app. For [Notion Enhancer](https://github.com/notion-enhancer/notion-enhancer) users, its maintainer reports that a Chrome extension may be coming soon. You can also continue using the current latest version indefinitely, as the current hosting solution is free on my end.
 
