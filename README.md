@@ -1,3 +1,9 @@
+**September 2021: Recommended alternative**
+
+https://github.com/notion-enhancer/notion-repackaged
+
+> Notion Desktop builds with Notion Enhancer for Windows, MacOS and Linux. Direct port of Notion is also available for Linux.
+
 **11 June 2021: End of support**
 
 I no longer use either Notion or Linux. Furthermore, recent updates to Notion have made it difficult for me to support all the existing variants (e.g. arm64, enhanced), due to new native modules and incompatibilities with Notion Enhancer. If you would like to maintain this project, please contact me by opening an issue, or through my website.
