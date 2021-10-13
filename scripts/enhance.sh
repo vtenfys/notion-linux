@@ -30,8 +30,8 @@ if ! [ -d "$BUILD_DIR_ENHANCED" ]; then
   # Remove the non-enhanced app package
   rm -rf "$BUILD_DIR_ENHANCED/notion-desktop-linux-$BUILD_ARCH"
 
-  # Replace package name with `notion-enhanced`
-  sed -i 's/"notion-desktop"/"notion-enhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
+  # Replace package name with `notionenhanced`
+  sed -i 's/"notion-desktop"/"notionenhanced"/' "$BUILD_DIR_ENHANCED/app-unpacked/package.json"
 fi
 
 if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
@@ -58,7 +58,7 @@ if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
 
   # Modify Notion Enhancer-patched scripts to point to the correct directories
   find "$BUILD_DIR_ENHANCED/app-unpacked" -name '*.js' \
-    -exec sed -i "s|/usr/lib/notion-desktop|/usr/lib/notion-enhanced|g" {} \; \
+    -exec sed -i "s|/usr/lib/notion-desktop|/usr/lib/notionenhanced|g" {} \; \
     -exec sed -i "s|$PWD/$BUILD_DIR_ENHANCED/app-unpacked/node_modules/notion-enhancer|notion-enhancer|g" {} \;
 
   # Mark as complete
@@ -66,7 +66,7 @@ if ! [ -f "$BUILD_DIR_ENHANCED/.enhanced" ]; then
 fi
 
 # Create Electron package
-if ! [ -d "$BUILD_DIR_ENHANCED/notion-enhanced-linux-$BUILD_ARCH" ]; then
+if ! [ -d "$BUILD_DIR_ENHANCED/notionenhanced-linux-$BUILD_ARCH" ]; then
   electron-packager "$BUILD_DIR_ENHANCED/app-unpacked" \
     --platform linux \
     --arch "$BUILD_ARCH" \
